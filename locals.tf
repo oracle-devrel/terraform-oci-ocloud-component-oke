@@ -1,0 +1,15 @@
+# copy the discovered resources from datasource.tf into local variables
+
+locals {
+  home_region = "eu-frankfurt-1"
+  vcn_id           = try(data.oci_core_vcns.vcns.virtual_networks[0].id,var.vcn_id)
+  vcn_cidr         = try(data.oci_core_vcns.vcns.virtual_networks[0].cidr_blocks[0],var.vcn_cidr)
+  nw_compartment_ocid = try(data.oci_identity_compartments.nw_compartments.compartments[0].id,var.nw_compartment_ocid)
+  appdev_compartment_ocid = try(data.oci_identity_compartments.appdev_compartments.compartments[0].id,var.appdev_compartment_ocid)
+  subnet_id        = data.oci_core_subnets.app_subnets.subnets[0].id
+  nsg_id           = data.oci_core_network_security_groups.app_nsgs.network_security_groups[0].id 
+  igw_id           = data.oci_core_internet_gateways.igws.gateways[0].id
+  ngw_id           = data.oci_core_nat_gateways.ngws.nat_gateways[0].id
+  web_subnet_id        = data.oci_core_subnets.web_subnets.subnets[0].id
+  lbr_nsg_id           = data.oci_core_network_security_groups.lbr_nsgs.network_security_groups[0].id 
+}

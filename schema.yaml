@@ -1,0 +1,44 @@
+# Title shown in Application Information tab.
+title: "Application Stack Schema"
+# Sub Title shown in Application Information tab.
+description: "Stack deploys a Dedicated Host, an Instance Pool of VMs and a Kubernetes Cluster" 
+informationalText: "Stack deploys a Dedicated Host, an Instance Pool of VMs and a Kubernetes Cluster"
+schemaVersion: 1.0.0
+version: "20210803"
+locale: "en"
+variableGroups:
+  - title: "App Stack Information"
+    variables:
+      - ${appdev_compartment_id}
+      - ${service}
+      - ${cpu_100percent_time}
+
+  - title: "Network Information"
+    variables:
+      - ${nw_compartment_id}
+      - ${vcn_id}
+
+variables:
+
+  appdev_compartment_id:
+    title: "Application Stack Compartment OCID"
+    type: oci:identity:compartment:id
+  service:
+    title: "Service Label"
+    type: string
+    description: "Common Service Label for App Stack Deployment"
+  cpu_100percent_time:
+    title: "100% CPU Usage Time on Pool Instances (minutes)"
+    type: number
+    description: "The number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
+  nw_compartment_id:
+    title: "Network Compartment OCID"
+    type: oci:identity:compartment:id
+
+  vcn_id:
+    title: "Application Stack VCN"
+    type: oci:core:vcn:id
+    description: "Virtual Cloud Network into which the application stack will be created"
+    dependsOn:
+      compartmentId: ${nw_compartment_id}
+

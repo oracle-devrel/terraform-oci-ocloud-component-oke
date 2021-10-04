@@ -1,0 +1,38 @@
+#!/bin/bash
+cd /home/opc
+
+# set timezone to Central European Time
+timedatectl set-timezone Europe/Berlin
+
+# install and start a httpd server, listening on port 80
+yum install -y httpd
+systemctl start httpd
+chkconfig httpd on
+systemctl stop firewalld
+
+# prepare pseudo-random HTML background color to easier distinguish the backend servers from each other
+COLORS="808080000080008000008080800000800080808000"
+COLOR=${COLORS:(( (( $(date +%s) / 300 % 7 )) * 6 )):6}
+
+# create a static page, showing the time the pool instance has been created. Use the background color determined earlier
+cd /home/opc 
+sudo echo "<html><title>Test Page</title><body bgcolor=#${COLOR}><table width=100% height=100% border=0><tr><td width=25%>&nbsp;</td><td width=50%>&nbsp;</td><td width=25%>&nbsp;</td></tr><tr><td width=25%>&nbsp;</td><td width=50%><h1><font face=Arial color=#ffffff>This Pool instance has been started on<br/>$(date).</font></h1></td><td width=25%>&nbsp;</td></tr><tr><td width=25%>&nbsp;</td><td width=50%>&nbsp;</td><td width=50%>&nbsp;</td></tr></table></body></html>" > ./index.html
+sudo cp ./index.html /var/www/html
+
+# get the metadata information about how long to simulate the CPU 100% utilization
+CPU_100PERCENT_TIME=$(curl -L http://169.254.169.254/opc/v1/instance/metadata/cpu_100percent_time)
+
+# get available number of CPU threads
+NO_OF_THREADS=$(lscpu | grep "CPU(s):" | head -n 1 | awk '{ print $2 }')
+
+# for every thread, start a background process that utilizes 100% of the thread, using the "yes" utility
+for i in $(seq $NO_OF_THREADS) 
+do 
+yes >/dev/null & 
+done 
+
+# wait the desired time in minutes, so we can watch the scaling out according to the autoscaling policy
+sleep "${CPU_100PERCENT_TIME}m"
+
+# kill all "yes" processes to get rid of the CPU load
+pkill -f yes
