@@ -7,7 +7,7 @@ resource "oci_load_balancer_load_balancer" "load_balancer" {
     display_name = "${var.service}-0-app-loadbalancer"
     shape = "100Mbps"
     subnet_ids = [local.web_subnet_id]
-    network_security_group_ids = [local.lbr_nsg_id]
+    #network_security_group_ids = [local.lbr_nsg_id]
 }
 
 # LB Listener
