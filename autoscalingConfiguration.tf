@@ -47,6 +47,6 @@ resource "oci_autoscaling_auto_scaling_configuration" "auto_scaling_configuratio
 
     }
     cool_down_in_seconds = "300"
-    display_name = "${var.service}_1_app_autoscaling_configuration"   
+    display_name = "${local.service}_1_app_autoscaling_configuration"   
     is_enabled = "true"
 }
