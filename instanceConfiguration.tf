@@ -2,7 +2,7 @@
 
 resource "oci_core_instance_configuration" "instance_configuration" {
     compartment_id = local.appdev_compartment_ocid
-    display_name = "${var.service}-0-app-instance-configuration"
+    display_name = "${var.service}_1_app_instance_configuration"
     instance_id = oci_core_instance.DemoInstance.id
     instance_details {
         instance_type = "compute"
@@ -10,7 +10,7 @@ resource "oci_core_instance_configuration" "instance_configuration" {
             compartment_id = local.appdev_compartment_ocid
             display_name = "Compute Instance"
             create_vnic_details {
-                nsg_ids = [local.nsg_id]
+                #nsg_ids = [local.nsg_id]
                 assign_public_ip = false
             }
 
