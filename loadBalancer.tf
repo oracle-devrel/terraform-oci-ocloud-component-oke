@@ -31,7 +31,7 @@ resource "oci_load_balancer_backend_set" "backend_set" {
         url_path = "/"
     }
     load_balancer_id = "${oci_load_balancer_load_balancer.load_balancer.id}"
-    name = "${var.service}-0-app-lb-bs"
+    name = "${var.service}_1_app_lb_bs"
     policy = "WEIGHTED_ROUND_ROBIN"
     
     session_persistence_configuration {
