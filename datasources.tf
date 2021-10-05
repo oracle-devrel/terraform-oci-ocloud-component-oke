@@ -19,53 +19,53 @@ data "oci_core_vnic" "InstanceVnic" {
 
 data "oci_identity_compartments" "nw_compartments" {
   compartment_id = var.tenancy_ocid
-  name              = "${var.service}-network-cmp"
+  name              = "${var.service}_network_compartment"
   compartment_id_in_subtree = true
   state                     = "ACTIVE"
 }
 
 data "oci_identity_compartments" "appdev_compartments" {
   compartment_id = var.tenancy_ocid
-  name                      = "${var.service}-appdev-cmp"
+  name                      = "${var.service}_application_compartment"
   compartment_id_in_subtree = true
   state                     = "ACTIVE"
 }
 
 data "oci_core_vcns" "vcns" {
   compartment_id = local.nw_compartment_ocid
-  display_name              = "${var.service}-0-vcn"
+  display_name              = "${var.service}_1_vcn"
   state                     = "AVAILABLE"
 }
 
-data "oci_core_subnets" "app_subnets" {
-  compartment_id = local.nw_compartment_ocid
-  display_name              = "${var.service}-0-app-subnet"
-  state                     = "AVAILABLE"
-}
+#data "oci_core_subnets" "app_subnets" {
+#  compartment_id = local.nw_compartment_ocid
+#  display_name              = "${var.service}-0-app-subnet"
+#  state                     = "AVAILABLE"
+#}
 
-data "oci_core_subnets" "web_subnets" {
-  compartment_id = local.nw_compartment_ocid
-  display_name              = "${var.service}-0-web-subnet"
-  state                     = "AVAILABLE"
-}
+#data "oci_core_subnets" "web_subnets" {
+#  compartment_id = local.nw_compartment_ocid
+#  display_name              = "${var.service}-0-web-subnet"
+#  state                     = "AVAILABLE"
+#}
 
 data "oci_core_network_security_groups" "app_nsgs" {
   compartment_id = local.nw_compartment_ocid
-  display_name              = "${var.service}-0-vcn-app-nsg"
+  display_name              = "${var.service}_1_security_group"
 }
 
 data "oci_core_network_security_groups" "lbr_nsgs" {
   compartment_id = local.nw_compartment_ocid
-  display_name              = "${var.service}-0-vcn-lbr-nsg"
+  display_name              = "${var.service}_1_security_group"
 }
 
 data "oci_core_internet_gateways" "igws" {
   compartment_id = local.nw_compartment_ocid
-  display_name              = "${var.service}-0-vcn-igw"
+  display_name              = "${var.service}_1_internet_gateway"
 }
 
 data "oci_core_nat_gateways" "ngws" {
   compartment_id = local.nw_compartment_ocid
-  display_name              = "${var.service}-0-vcn-natgw"
+  display_name              = "${var.service}_1_nat_gateway"
 }
 
