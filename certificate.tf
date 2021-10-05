@@ -12,7 +12,7 @@ resource "tls_self_signed_cert" "demo_certificate" {
   private_key_pem   = tls_private_key.demo_private_key.private_key_pem
 
   subject {
-    common_name         = "${var.service}-0-app-demo-certificate"
+    common_name         = "${var.service}_1_app_demo_certificate"
     organization        = "Demo"
     organizational_unit = "FOR TESTING ONLY"
   }
@@ -29,7 +29,7 @@ resource "tls_self_signed_cert" "demo_certificate" {
 
 resource "oci_load_balancer_certificate" "test_certificate" {
     #Required
-    certificate_name = "${var.service}-0-test-ssl-certificate"
+    certificate_name = "${var.service}_1_test_ssl_certificate"
     load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id
 
     #Optional
