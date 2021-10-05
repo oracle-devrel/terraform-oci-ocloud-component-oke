@@ -4,7 +4,7 @@ title: "Application Stack Schema"
 description: "Stack deploys a Dedicated Host, an Instance Pool of VMs and a Kubernetes Cluster" 
 informationalText: "Stack deploys a Dedicated Host, an Instance Pool (along with an Autoscaling Policy) of VMs with a Load Balancer in front and a Kubernetes Cluster on top of the infrastructure deployed by the Landing Zone stack in a previous step. To demonstrate the autoscaling mechanism, the compute instances are deployed with a script that starts automatically and utilizes the CPUs to 100% for a user-defined time. This script can be exchanged to any other user-defined shell script. To demonstrate how Kubernetes workloads can be deployed to the Kubernetes cluster, a sample NGINX server gets deployed and exposed as a service."
 schemaVersion: 1.0.0
-version: "20210803"
+version: "20211005"
 locale: "en"
 variableGroups:
   - title: "Landing Zone Stack"
