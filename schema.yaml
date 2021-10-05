@@ -2,15 +2,19 @@
 title: "Application Stack Schema"
 # Sub Title shown in Application Information tab.
 description: "Stack deploys a Dedicated Host, an Instance Pool of VMs and a Kubernetes Cluster" 
-informationalText: "Stack deploys a Dedicated Host, an Instance Pool of VMs and a Kubernetes Cluster"
+informationalText: "Stack deploys a Dedicated Host, an Instance Pool (along with an Autoscaling Policy) of VMs with a Load Balancer in front and a Kubernetes Cluster on top of the infrastructure deployed by the Landing Zone stack in a previous step. To demonstrate the autoscaling mechanism, the compute instances are deployed with a script that starts automatically and utilizes the CPUs to 100% for a user-defined time. This script can be exchanged to any other user-defined shell script. To demonstrate how Kubernetes workloads can be deployed to the Kubernetes cluster, a sample NGINX server gets deployed and exposed as a service."
 schemaVersion: 1.0.0
 version: "20210803"
 locale: "en"
 variableGroups:
+  - title: "Landing Zone Stack"
+    variables:
+      - ${stack_id}
   - title: "App Stack Information"
     variables:
       - ${appdev_compartment_id}
-      - ${service}
+      - ${organization}
+      - ${project}
       - ${cpu_100percent_time}
 
   - title: "Network Information"
@@ -20,13 +24,26 @@ variableGroups:
 
 variables:
 
+  stack_id:
+    title: "Landing Zone Stack OCID"
+    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the landing zone Terraform stack's OCID."
+    type: string
+    required: true
   appdev_compartment_id:
     title: "Application Stack Compartment OCID"
+    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the application stack compartment's OCID."
     type: oci:identity:compartment:id
-  service:
-    title: "Service Label"
+    required: true
+  organization:
+    title: "Organization"
     type: string
-    description: "Common Service Label for App Stack Deployment"
+    description: "Used as part of a service label to identify landing zone resources"
+    required: true
+  project:
+    title: "Project"
+    type: string
+    description: "Used as part of a service label to identify landing zone resources"
+    required: true
   cpu_100percent_time:
     title: "100% CPU Usage Time on Pool Instances (minutes)"
     type: number
@@ -34,11 +51,12 @@ variables:
   nw_compartment_id:
     title: "Network Compartment OCID"
     type: oci:identity:compartment:id
-
+    required: true
   vcn_id:
     title: "Application Stack VCN"
     type: oci:core:vcn:id
     description: "Virtual Cloud Network into which the application stack will be created"
     dependsOn:
       compartmentId: ${nw_compartment_id}
+    required: true
 
