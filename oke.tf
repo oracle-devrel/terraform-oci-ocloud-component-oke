@@ -16,7 +16,7 @@ data "oci_core_images" "node_pool_image" {
 
 resource "oci_core_security_list" "okenet_security_list" {
   compartment_id = local.nw_compartment_ocid
-  display_name   = "${var.service}_1_oke_securitylist"
+  display_name   = "${local.service}_1_oke_securitylist"
   vcn_id         = local.vcn_id
 
   egress_security_rules {
@@ -95,7 +95,7 @@ resource "oci_core_security_list" "okenet_security_list" {
 
 resource "oci_core_security_list" "oke_lb_security_list" {
   compartment_id = local.nw_compartment_ocid
-  display_name   = "${var.service}_0-oke-lb-securitylist"
+  display_name   = "${local.service}_0-oke-lb-securitylist"
   vcn_id         = local.vcn_id
 
   egress_security_rules {
@@ -128,7 +128,7 @@ resource "oci_core_security_list" "oke_lb_security_list" {
 resource "oci_core_route_table" "okeroutetable" {
   compartment_id = local.nw_compartment_ocid
   vcn_id         = local.vcn_id
-  display_name   = "${var.service}-0-oke-routetable"
+  display_name   = "${local.service}_1_oke_routetable"
 
   route_rules {
     cidr_block        = "0.0.0.0/0"
@@ -139,7 +139,7 @@ resource "oci_core_route_table" "okeroutetable" {
 resource "oci_core_route_table" "okenodepoolroutetable" {
   compartment_id = local.nw_compartment_ocid
   vcn_id         = local.vcn_id
-  display_name   = "${var.service}_1_oke_nodepool_routetable"
+  display_name   = "${local.service}_1_oke_nodepool_routetable"
 
   route_rules {
     cidr_block        = "0.0.0.0/0"
@@ -150,7 +150,7 @@ resource "oci_core_route_table" "okenodepoolroutetable" {
 resource "oci_core_route_table" "okelbroutetable" {
   compartment_id = local.nw_compartment_ocid
   vcn_id         = local.vcn_id
-  display_name   = "${var.service}_1_oke_lb_routetable"
+  display_name   = "${local.service}_1_oke_lb_routetable"
 
   route_rules {
     cidr_block        = "0.0.0.0/0"
@@ -162,7 +162,7 @@ resource "oci_core_subnet" "okenet" {
   cidr_block       = cidrsubnet(local.vcn_cidr, 4, 3)
   compartment_id   = local.nw_compartment_ocid
   vcn_id           = local.vcn_id
-  display_name     = "${var.service}_1_oke_cluster_subnet"
+  display_name     = "${local.service}_1_oke_cluster_subnet"
   dns_label        = "oke"
   security_list_ids = [oci_core_security_list.okenet_security_list.id]
   route_table_id      = oci_core_route_table.okeroutetable.id
@@ -173,7 +173,7 @@ resource "oci_core_subnet" "okelbnet" {
   cidr_block       = cidrsubnet(local.vcn_cidr, 4, 4)
   compartment_id   = local.nw_compartment_ocid
   vcn_id           = local.vcn_id
-  display_name     = "${var.service}_1_oke_loadbalancer_subnet"
+  display_name     = "${local.service}_1_oke_loadbalancer_subnet"
   dns_label        = "okelbnet"
   security_list_ids = [oci_core_security_list.oke_lb_security_list.id]
   route_table_id      = oci_core_route_table.okelbroutetable.id
@@ -184,7 +184,7 @@ resource "oci_core_subnet" "okenodepoolnet" {
   cidr_block       = cidrsubnet(local.vcn_cidr, 4, 5)
   compartment_id   = local.nw_compartment_ocid
   vcn_id           = local.vcn_id
-  display_name     = "${var.service}_1_oke_nodepool_subnet"
+  display_name     = "${local.service}_1_oke_nodepool_subnet"
   dns_label        = "okenodepool"
   security_list_ids = [oci_core_security_list.okenet_security_list.id]
   route_table_id      = oci_core_route_table.okenodepoolroutetable.id
@@ -195,7 +195,7 @@ resource "oci_core_subnet" "okenodepoolnet" {
 resource "oci_containerengine_cluster" "oke_cluster" {
     compartment_id = local.appdev_compartment_ocid
     kubernetes_version = var.kubernetes_version
-    name = "${var.service}_1_oke_cluster"
+    name = "${local.service}_1_oke_cluster"
     vcn_id = local.vcn_id
 
     endpoint_config {
@@ -216,7 +216,7 @@ resource "oci_containerengine_node_pool" "oke_node_pool" {
     cluster_id = oci_containerengine_cluster.oke_cluster.id
     compartment_id = local.appdev_compartment_ocid
     kubernetes_version = var.kubernetes_version 
-    name = "${var.service}_1_oke_nodespool"
+    name = "${local.service}_1_oke_nodespool"
     node_shape = var.node_pool_shape
     node_image_id = data.oci_core_images.node_pool_image.images[0].id 
    
