@@ -19,7 +19,7 @@ data "oci_core_images" "compute_image" {
 resource "oci_core_instance" "DemoInstance" {
   availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
   compartment_id      = local.appdev_compartment_ocid
-  display_name        = "${var.service}_1_app_instancepool_blueprint_instance"
+  display_name        = "${local.service}_1_app_instancepool_blueprint_instance"
   image               = data.oci_core_images.compute_image.images[0].id 
   shape               = var.InstanceShape
   subnet_id           = local.subnet_id
