@@ -4,7 +4,7 @@
 #Load Balancer
 resource "oci_load_balancer_load_balancer" "load_balancer" {
     compartment_id = local.appdev_compartment_ocid
-    display_name = "${var.service}-0-app-loadbalancer"
+    display_name = "${var.service}_1_app_loadbalancer"
     shape = "100Mbps"
     subnet_ids = [local.web_subnet_id]
     #network_security_group_ids = [local.lbr_nsg_id]
@@ -14,7 +14,7 @@ resource "oci_load_balancer_load_balancer" "load_balancer" {
 resource "oci_load_balancer_listener" "lb_listener" {
     default_backend_set_name = "${oci_load_balancer_backend_set.backend_set.name}"
     load_balancer_id = "${oci_load_balancer_load_balancer.load_balancer.id}"
-    name = "${var.service}-0-app-lb-listener"
+    name = "${var.service}_1_app_lb_listener"
     port = "443"
     protocol = "HTTP"
     ssl_configuration {
@@ -41,7 +41,8 @@ resource "oci_load_balancer_backend_set" "backend_set" {
     
 }
 
-#Add 443 ingress policy to exiting LBR network security group
+#Add 443 ingress policy to existing LBR network security group
+/*
 resource "oci_core_network_security_group_security_rule" "https" {
   network_security_group_id = local.lbr_nsg_id
 
@@ -57,6 +58,7 @@ resource "oci_core_network_security_group_security_rule" "https" {
     }
   }
 }
+*
 
 
 output "instance_pool_load_balancer_public_endpoint_url" {
