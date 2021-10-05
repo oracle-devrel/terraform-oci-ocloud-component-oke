@@ -46,11 +46,30 @@ variable "appdev_compartment_ocid" {
     default = ""
 }
 
-variable "service" {
-  description = "Common Label used with all related resources"
+variable "organization" {
+  description = "Common Label Part used with all related resources"
   type        = string
   # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
+
+variable "project" {
+  description = "Common Label Part used with all related resources"
+  type        = string
+  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
+}
+
+variable "service" {
+  description = "Common Label used with all related resources"
+  type        = string
+  default     = "${var.organization}_${var.project}"
+}
+
+variable "servicelabel" {
+  description = "DNS-compliant Common Label used with all related resources"
+  type        = string
+  default     = "${var.organization}${var.project}"
+}
+
 # Required
 # Network compartment which contains all network resources as VCN, database subnet and database network 
 # security groups
