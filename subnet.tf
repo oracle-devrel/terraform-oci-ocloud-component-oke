@@ -88,7 +88,7 @@ resource "oci_core_route_table" "lbroutetable" {
 }
 
 resource "oci_core_subnet" "poolnet" {
-  cidr_block       = cidrsubnet(local.vcn_cidr, 4, 5)
+  cidr_block       = cidrsubnet(local.vcn_cidr, 4, 7)
   compartment_id   = local.nw_compartment_ocid
   vcn_id           = local.vcn_id
   display_name     = "${local.service}_1_pool_subnet"
