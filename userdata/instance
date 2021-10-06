@@ -16,7 +16,7 @@ COLOR=${COLORS:(( (( $(date +%s) / 300 % 7 )) * 6 )):6}
 
 # create a static page, showing the time the pool instance has been created. Use the background color determined earlier
 cd /home/opc 
-sudo echo "<html><title>Test Page</title><body bgcolor=#${COLOR}><table width=100% height=100% border=0><tr><td width=25%>&nbsp;</td><td width=50%>&nbsp;</td><td width=25%>&nbsp;</td></tr><tr><td width=25%>&nbsp;</td><td width=50%><h1><font face=Arial color=#ffffff>This Pool instance has been started on<br/>$(date).</font></h1></td><td width=25%>&nbsp;</td></tr><tr><td width=25%>&nbsp;</td><td width=50%>&nbsp;</td><td width=50%>&nbsp;</td></tr></table></body></html>" > ./index.html
+sudo echo "<html><title>Test Page</title><body bgcolor=#${COLOR}><table width=100% height=100% border=0><tr><td width=25%>&nbsp;</td><td width=50%>&nbsp;</td><td width=25%>&nbsp;</td></tr><tr><td width=25%>&nbsp;</td><td width=50%><h1><font face=Arial color=#ffffff>This Pool Instance has been started on<br/>$(date).</font></h1></td><td width=25%>&nbsp;</td></tr><tr><td width=25%>&nbsp;</td><td width=50%>&nbsp;</td><td width=50%>&nbsp;</td></tr></table></body></html>" > ./index.html
 sudo cp ./index.html /var/www/html
 
 # get the metadata information about how long to simulate the CPU 100% utilization
