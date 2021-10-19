@@ -3,7 +3,7 @@
 resource "oci_core_instance_configuration" "instance_configuration" {
     compartment_id = local.appdev_compartment_ocid
     display_name = "${local.service}_1_app_instance_configuration"
-    instance_id = oci_core_instance.DemoInstance.id
+    instance_id = oci_core_instance.demo_instance.id
     instance_details {
         instance_type = "compute"
         launch_details {
@@ -14,11 +14,11 @@ resource "oci_core_instance_configuration" "instance_configuration" {
                 assign_public_ip = false
             }
 
-            shape = var.InstanceShape
+            shape = var.shape
             
             metadata = {
                ssh_authorized_keys = var.ssh_public_key
-               cpu_100percent_time = var.cpu_100percent_time
+               cpu_100percent_time = var.cloud_init_parameter_1
                user_data           = base64encode(file(var.InstanceBootStrap))
             }
             source_details {
