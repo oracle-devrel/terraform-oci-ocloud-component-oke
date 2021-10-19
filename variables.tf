@@ -20,33 +20,27 @@ variable "region" {
 variable "shape" {
     type = string
     description = "Shape of the compute instances"
-    default = ""
 }
 
 variable "os" {
     type = string
     description = "Compute Instance Operating System without version number"
-    default = ""
 }
 
-variable "version" {
+variable "os_version" {
     type = string
     description = "Version of the Compute Instance Operating System"
-    default = ""
 }
 
 variable "block_storage_size" {
     type = number
     description = "Size of the Block Storage in GBs"
-    default = ""
 }
 
 variable "cloud_init_parameter_1" {
     type = string
     description = "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out."
-    default = ""
 }
-
 
 variable "ssh_public_key" {
 }
