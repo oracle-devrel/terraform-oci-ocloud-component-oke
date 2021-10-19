@@ -101,5 +101,5 @@ data "kubernetes_service" "nginx" {
 # send the Nginx service load balancer public endpoint URL to output
 
 output "nginx_load_balancer_public_endpoint_url" {
-  value = "http://${data.kubernetes_service.nginx.load_balancer_ingress[0].ip}"
+  value = "http://${data.kubernetes_service.nginx.status[0].load_balancer[0].ingress[0].ip}"
 }
