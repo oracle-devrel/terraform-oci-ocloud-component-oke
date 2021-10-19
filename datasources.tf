@@ -9,7 +9,7 @@ data "oci_identity_availability_domains" "ADs" {
 data "oci_core_vnic_attachments" "InstanceVnics" {
   compartment_id      = local.appdev_compartment_ocid
   availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
-  instance_id         = oci_core_instance.DemoInstance.id
+  instance_id         = oci_core_instance.demo_instance.id
 }
 
 # Gets the OCID of the first (default) vNIC on the demo-instance host
