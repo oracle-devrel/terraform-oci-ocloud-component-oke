@@ -1,4 +1,4 @@
-# creates a Linux 7.9 instance as a blueprint for the instance pool
+
 # the first data element looks up all available images, the newest one is returned as the first element of the array, so we can index it with [0]
 
 # due to the service limits, no dedicated VM host can be deployed in our tenant. However, I left the definition for instances on a Dedicated VM Host here at the bottom (commented out).
