@@ -47,7 +47,6 @@ resource "oci_core_volume_attachment" "instance" {
   attachment_type = "paravirtualized"
   instance_id     = oci_core_instance.demo_instance.id
   volume_id       = oci_core_volume.instance.id
-  use_chap        = var.host.use_chap
 }
 
 
