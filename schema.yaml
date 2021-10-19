@@ -4,7 +4,7 @@ title: "Application Stack Schema"
 description: "Stack deploys a Dedicated Host, an Instance Pool of VMs and a Kubernetes Cluster" 
 informationalText: "Stack deploys a Dedicated Host, an Instance Pool (along with an Autoscaling Policy) of VMs with a Load Balancer in front and a Kubernetes Cluster on top of the infrastructure deployed by the Landing Zone stack in a previous step. To demonstrate the autoscaling mechanism, the compute instances are deployed with a script that starts automatically and utilizes the CPUs to 100% for a user-defined time. This script can be exchanged to any other user-defined shell script. To demonstrate how Kubernetes workloads can be deployed to the Kubernetes cluster, a sample NGINX server gets deployed and exposed as a service."
 schemaVersion: 1.0.0
-version: "20211005"
+version: "20211019"
 locale: "en"
 variableGroups:
   - title: "Landing Zone Stack"
@@ -15,7 +15,11 @@ variableGroups:
       - ${appdev_compartment_id}
       - ${organization}
       - ${project}
-      - ${cpu_100percent_time}
+      - ${shape}
+      - ${os}
+      - ${version}
+      - ${block_storage_size}
+      - ${cloud_init_parameter_1}
 
   - title: "Network Information"
     variables:
@@ -43,16 +47,36 @@ variables:
     type: string
     description: "Used as part of a service label to identify landing zone resources"
     required: true
+  shape:
+    title: "Compute Instance Shape"
+    type: string
+    description: "Shape of the compute instances"
+    required: true
+    default: "VM.Standard2.1"
+  os:
+    title: "Compute Instance Operating System"
+    type: string
+    description: "Operating System for the compute instances without version number"
+    required: true
+    default: "Oracle Linux"
+  version:
+    title: "Version of the Compute Instance Operating System"
+    type: string
+    description: "Version of the Compute Instance Operating System"
+    required: true
+    default: "7.9"
+  block_storage_size:
+    title: "Size of the Block Storage in GBs"
+    type: number
+    description: "Size of the Block Storage in GBs"
+    required: true
+    default: 50
   cloud_init_parameter_1:
     title: "Parameter for Cloud Init"
-    type: number
+    type: string
     description: "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
     required: true
-  cloud_init_parameter_1:
-    title: "Shape"
-    type: number
-    description: "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
-    required: true
+    default: "0"
   nw_compartment_id:
     title: "Network Compartment OCID"
     type: oci:identity:compartment:id
