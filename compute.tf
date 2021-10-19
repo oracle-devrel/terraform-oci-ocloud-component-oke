@@ -6,7 +6,7 @@
 data "oci_core_images" "compute_image" {
   compartment_id           = local.appdev_compartment_ocid
   operating_system         = var.os
-  operating_system_version = var.version
+  operating_system_version = var.os_version
   shape			   = var.shape
   sort_by		   = "TIMECREATED"
   sort_order		   = "DESC"
