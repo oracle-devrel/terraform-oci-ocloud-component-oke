@@ -1,7 +1,12 @@
 # https://docs.cloud.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#notes
 
 terraform {
-  required_version = "< 1.11.1"
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      required_version = "< 1.11.1"
+    }
+  }
 }
 
 
