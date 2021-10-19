@@ -3,13 +3,10 @@
 
 # due to the service limits, no dedicated VM host can be deployed in our tenant. However, I left the definition for instances on a Dedicated VM Host here at the bottom (commented out).
 
-variable "compute_os" 	{ default = var.os }
-variable "compute_os_version" { default = var.version}
-
 data "oci_core_images" "compute_image" {
   compartment_id           = local.appdev_compartment_ocid
-  operating_system         = var.compute_os
-  operating_system_version = var.compute_os_version
+  operating_system         = var.os
+  operating_system_version = var.version
   shape			   = var.shape
   sort_by		   = "TIMECREATED"
   sort_order		   = "DESC"
