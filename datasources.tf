@@ -38,7 +38,7 @@ data "oci_core_vcns" "vcns" {
 }
 
 data "oci_core_vcn" "vcn" {
-  vcn_id     =     try(var.vcn_id, var.vcn_ocid)
+  vcn_id     =     var.vcn_id
 }
 
 #data "oci_core_subnets" "app_subnets" {
@@ -54,22 +54,18 @@ data "oci_core_vcn" "vcn" {
 #}
 
 data "oci_core_network_security_groups" "app_nsgs" {
-  compartment_id = local.nw_compartment_ocid
-  display_name              = "${local.service}_1_security_group"
+  vcn_id     =     var.vcn_id
 }
 
 data "oci_core_network_security_groups" "lbr_nsgs" {
-  compartment_id = local.nw_compartment_ocid
-  display_name              = "${local.service}_1_security_group"
+  vcn_id     =     var.vcn_id
 }
 
 data "oci_core_internet_gateways" "igws" {
-  compartment_id = local.nw_compartment_ocid
-  display_name              = "${local.service}_1_internet_gateway"
+  vcn_id     =     var.vcn_id
 }
 
 data "oci_core_nat_gateways" "ngws" {
-  compartment_id = local.nw_compartment_ocid
-  display_name              = "${local.service}_1_nat_gateway"
+   vcn_id     =     var.vcn_id
 }
 
