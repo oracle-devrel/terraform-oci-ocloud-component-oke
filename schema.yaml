@@ -7,9 +7,9 @@ schemaVersion: 1.0.0
 version: "20211019"
 locale: "en"
 variableGroups:
-  - title: "Landing Zone Stack"
-    variables:
-      - ${stack_id}
+#  - title: "Landing Zone Stack"
+#    variables:
+#      - ${stack_id}
   - title: "App Stack Information"
     variables:
       - ${appdev_compartment_id}
