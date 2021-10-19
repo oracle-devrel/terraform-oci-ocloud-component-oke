@@ -7,10 +7,10 @@ locals {
   # vcn_cidr         = try(data.oci_core_vcns.vcns.virtual_networks[0].cidr_blocks[0],var.vcn_cidr)
   # nw_compartment_ocid = try(data.oci_identity_compartments.nw_compartments.compartments[0].id,var.nw_compartment_ocid)
   # appdev_compartment_ocid = try(data.oci_identity_compartments.appdev_compartments.compartments[0].id,var.appdev_compartment_ocid)
-  vcn_id           = try(var.vcn_id, var.vcn_ocid)
-  vcn_cidr         = try(data.oci_core_vcn.vcn.cidr_blocks[0],var.vcn_cidr)
-  nw_compartment_ocid = try(var.nw_compartment_id,var.nw_compartment_ocid)
-  appdev_compartment_ocid = try(var.appdev_compartment_ocid,var.appdev_compartment_ocid)
+  vcn_id           = var.vcn_id
+  vcn_cidr         = data.oci_core_vcn.vcn.cidr_blocks[0]
+  nw_compartment_ocid = var.nw_compartment_id
+  appdev_compartment_ocid = var.appdev_compartment_id
   
   subnet_id        = oci_core_subnet.poolnet.id
   nsg_id           = data.oci_core_network_security_groups.app_nsgs.network_security_groups[0].id 
