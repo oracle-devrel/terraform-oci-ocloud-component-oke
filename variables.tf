@@ -82,14 +82,12 @@ variable "project" {
 variable "nw_compartment_ocid" {
     type = string
     description = "The OCID of the compartment for the networking resources"
-    default = ""
 }
 
 # Required
 # VCN
 variable "vcn_id" {
     type = string
-    default = ""
 }
 
 
