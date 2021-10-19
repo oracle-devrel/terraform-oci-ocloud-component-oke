@@ -45,10 +45,6 @@ variable "cloud_init_parameter_1" {
 variable "ssh_public_key" {
 }
 
-
-variable "vcn_cidr" {
-}
-
 variable "InstanceBootStrap" {
   default = "./userdata/instance"
 }
@@ -57,10 +53,10 @@ variable "AD" {
   default = "1"
 }
 
-variable "appdev_compartment_ocid" {
+variable "appdev_compartment_id" {
     type = string
     description = "The OCID of the compartment for the app stack resources"
-    default = ""
+    # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 variable "organization" {
@@ -75,20 +71,15 @@ variable "project" {
   # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
-# Required
-# Network compartment which contains all network resources as VCN, database subnet and database network 
-# security groups
-variable "nw_compartment_ocid" {
+variable "nw_compartment_id" {
     type = string
     description = "The OCID of the compartment for the networking resources"
-    default = ""
+  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
-# Required
-# VCN
-variable "vcn_ocid" {
+variable "vcn_id" {
     type = string
-    default = ""
+  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 
