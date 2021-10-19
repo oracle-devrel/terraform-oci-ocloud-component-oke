@@ -17,7 +17,7 @@ variableGroups:
       - ${project}
       - ${shape}
       - ${os}
-      - ${version}
+      - ${os_version}
       - ${block_storage_size}
       - ${cloud_init_parameter_1}
 
@@ -59,7 +59,7 @@ variables:
     description: "Operating System for the compute instances without version number"
     required: true
     default: "Oracle Linux"
-  version:
+  os_version:
     title: "Version of the Compute Instance Operating System"
     type: string
     description: "Version of the Compute Instance Operating System"
