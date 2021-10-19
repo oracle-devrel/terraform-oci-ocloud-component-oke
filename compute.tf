@@ -3,25 +3,25 @@
 
 # due to the service limits, no dedicated VM host can be deployed in our tenant. However, I left the definition for instances on a Dedicated VM Host here at the bottom (commented out).
 
-variable "compute_os" 	{ default = "Oracle Linux" }
-variable "compute_os_version" { default = "7.9"}
+variable "compute_os" 	{ default = var.os }
+variable "compute_os_version" { default = var.version}
 
 data "oci_core_images" "compute_image" {
   compartment_id           = local.appdev_compartment_ocid
   operating_system         = var.compute_os
   operating_system_version = var.compute_os_version
-  shape			   = var.InstanceShape
+  shape			   = var.shape
   sort_by		   = "TIMECREATED"
   sort_order		   = "DESC"
 }
 
 
-resource "oci_core_instance" "DemoInstance" {
+resource "oci_core_instance" "demo_instance" {
   availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
   compartment_id      = local.appdev_compartment_ocid
   display_name        = "${local.service}_1_app_instancepool_blueprint_instance"
   image               = data.oci_core_images.compute_image.images[0].id 
-  shape               = var.InstanceShape
+  shape               = var.shape
   subnet_id           = local.subnet_id
   
   create_vnic_details {
@@ -32,12 +32,12 @@ resource "oci_core_instance" "DemoInstance" {
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
-    cpu_100percent_time = var.cpu_100percent_time
+    cpu_100percent_time = var.cloud_init_parameter_1
     user_data           = base64encode(file(var.InstanceBootStrap))
   }
 }
 
-#resource "oci_core_instance" "DedicatedHostVMs" {
+#resource "oci_core_instance" "dedicated_host_vms" {
 #  count               = 4
 #  availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
 #  compartment_id      = local.appdev_compartment_ocid
