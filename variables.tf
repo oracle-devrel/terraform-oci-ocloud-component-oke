@@ -60,6 +60,7 @@ variable "AD" {
 variable "appdev_compartment_ocid" {
     type = string
     description = "The OCID of the compartment for the app stack resources"
+    default = ""
 }
 
 variable "organization" {
@@ -80,12 +81,14 @@ variable "project" {
 variable "nw_compartment_ocid" {
     type = string
     description = "The OCID of the compartment for the networking resources"
+    default = ""
 }
 
 # Required
 # VCN
 variable "vcn_ocid" {
     type = string
+    default = ""
 }
 
 
