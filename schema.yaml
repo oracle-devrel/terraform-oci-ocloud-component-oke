@@ -28,10 +28,10 @@ variableGroups:
 
 variables:
 
-  stack_id:
-    title: "Landing Zone Stack OCID"
-    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the landing zone Terraform stack's OCID."
-    type: string
+#  stack_id:
+#    title: "Landing Zone Stack OCID"
+#    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the landing zone Terraform stack's OCID."
+#    type: string
   appdev_compartment_id:
     title: "Application Stack Compartment OCID"
     description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the application stack compartment's OCID."
