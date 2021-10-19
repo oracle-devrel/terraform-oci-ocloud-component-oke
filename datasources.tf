@@ -54,10 +54,12 @@ data "oci_core_vcn" "vcn" {
 #}
 
 data "oci_core_network_security_groups" "app_nsgs" {
-  vcn_id     =     var.vcn_id
+  compartment_id   =     var.nw_compartment_id
+  vcn_id           =     var.vcn_id
 }
 
 data "oci_core_network_security_groups" "lbr_nsgs" {
+  compartment_id   =     var.nw_compartment_id
   vcn_id     =     var.vcn_id
 }
 
