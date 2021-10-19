@@ -37,6 +37,10 @@ data "oci_core_vcns" "vcns" {
   state                     = "AVAILABLE"
 }
 
+data "oci_core_vcn" "vcn" {
+  vcn_id     =     try(var.vcn_id, var.vcn_ocid)
+}
+
 #data "oci_core_subnets" "app_subnets" {
 #  compartment_id = local.nw_compartment_ocid
 #  display_name              = "${local.service}-0-app-subnet"
