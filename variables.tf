@@ -17,16 +17,40 @@ variable "region" {
      default = "eu-frankfurt-1"
 }
 
-variable "cpu_100percent_time" {
-     default = "0"
-     description = "The number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
+variable "shape" {
+    type = string
+    description = "Shape of the compute instances"
+    default = ""
 }
+
+variable "os" {
+    type = string
+    description = "Compute Instance Operating System without version number"
+    default = ""
+}
+
+variable "version" {
+    type = string
+    description = "Version of the Compute Instance Operating System"
+    default = ""
+}
+
+variable "block_storage_size" {
+    type = number
+    description = "Size of the Block Storage in GBs"
+    default = ""
+}
+
+variable "cloud_init_parameter_1" {
+    type = string
+    description = "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out."
+    default = ""
+}
+
+
 variable "ssh_public_key" {
 }
 
-variable "InstanceShape" {
-  default = "VM.Standard2.1"
-}
 
 variable "vcn_cidr" {
   default = "10.0.0.0/16"
