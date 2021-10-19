@@ -61,7 +61,6 @@ variable "AD" {
 variable "appdev_compartment_ocid" {
     type = string
     description = "The OCID of the compartment for the app stack resources"
-    default = ""
 }
 
 variable "organization" {
