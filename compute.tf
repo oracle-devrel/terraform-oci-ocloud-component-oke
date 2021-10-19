@@ -38,7 +38,7 @@ resource "oci_core_instance" "demo_instance" {
 resource "oci_core_volume" "instance" {
   availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
   compartment_id      = local.appdev_compartment_ocid
-  service_name        = "${local.service}_1_app_demo_instance_block_storage"
+  display_name        = "${local.service}_1_app_demo_instance_block_storage"
   size_in_gbs         = var.block_storage_size
 }
 
