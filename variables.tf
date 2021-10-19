@@ -84,7 +84,7 @@ variable "nw_compartment_ocid" {
 
 # Required
 # VCN
-variable "vcn_id" {
+variable "vcn_ocid" {
     type = string
 }
 
