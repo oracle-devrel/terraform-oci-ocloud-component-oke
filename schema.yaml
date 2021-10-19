@@ -43,10 +43,16 @@ variables:
     type: string
     description: "Used as part of a service label to identify landing zone resources"
     required: true
-  cpu_100percent_time:
-    title: "100% CPU Usage Time on Pool Instances (minutes)"
+  cloud_init_parameter_1:
+    title: "Parameter for Cloud Init"
     type: number
-    description: "The number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
+    description: "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
+    required: true
+  cloud_init_parameter_1:
+    title: "Shape"
+    type: number
+    description: "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
+    required: true
   nw_compartment_id:
     title: "Network Compartment OCID"
     type: oci:identity:compartment:id
