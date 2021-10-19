@@ -62,10 +62,12 @@ data "oci_core_network_security_groups" "lbr_nsgs" {
 }
 
 data "oci_core_internet_gateways" "igws" {
-  vcn_id     =     var.vcn_id
+  compartment_id   =     var.nw_compartment_id
+  vcn_id           =     var.vcn_id
 }
 
 data "oci_core_nat_gateways" "ngws" {
-   vcn_id     =     var.vcn_id
+   compartment_id  =     var.nw_compartment_id
+   vcn_id          =     var.vcn_id
 }
 
