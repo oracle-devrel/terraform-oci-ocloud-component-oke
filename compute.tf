@@ -19,7 +19,7 @@ data "oci_core_images" "compute_image" {
 resource "oci_core_instance" "demo_instance" {
   availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
   compartment_id      = local.appdev_compartment_ocid
-  display_name        = "${local.service}_1_app_instancepool_blueprint_instance"
+  display_name        = "${local.service}_1_app_demo_instance"
   image               = data.oci_core_images.compute_image.images[0].id 
   shape               = var.shape
   subnet_id           = local.subnet_id
@@ -36,6 +36,23 @@ resource "oci_core_instance" "demo_instance" {
     user_data           = base64encode(file(var.InstanceBootStrap))
   }
 }
+
+# --- Volume ---
+resource "oci_core_volume" "instance" {
+  availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
+  compartment_id      = local.appdev_compartment_ocid
+  service_name        = "${local.service}_1_app_demo_instance_block_storage"
+  size_in_gbs         = var.block_storage_size
+}
+
+# --- Volume Attachment ---
+resource "oci_core_volume_attachment" "instance" {
+  attachment_type = "paravirtualized"
+  instance_id     = oci_core_instance.demo_instance.id
+  volume_id       = oci_core_volume.instance.id
+  use_chap        = var.host.use_chap
+}
+
 
 #resource "oci_core_instance" "dedicated_host_vms" {
 #  count               = 4
