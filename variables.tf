@@ -47,7 +47,6 @@ variable "ssh_public_key" {
 
 
 variable "vcn_cidr" {
-  default = "10.0.0.0/16"
 }
 
 variable "InstanceBootStrap" {
