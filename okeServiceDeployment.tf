@@ -13,7 +13,8 @@
 
 # define the Kubernetes provider. Get the Kubernetes configuration and extract the cluster certificate, extract the commands and arguments to create an ExecCredential and execute this command
 provider "kubernetes" {
-  # load_config_file       = "false"        # Workaround for tf k8s provider < 1.11.1 to work with ORM
+  version                = "< 2.2.0"
+  load_config_file       = "false"        # Workaround for tf k8s provider < 1.11.1 to work with ORM
   config_path            = "~/.kube/config"
   cluster_ca_certificate = base64decode(yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["certificate-authority-data"])
   host                   = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["server"]
