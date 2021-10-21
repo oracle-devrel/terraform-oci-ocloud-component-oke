@@ -1,3 +1,4 @@
+/*
 # https://docs.cloud.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#notes
 
 #terraform {
@@ -136,3 +137,4 @@ data "kubernetes_service" "nginx" {
 output "nginx_load_balancer_public_endpoint_url" {
   value = "http://${data.kubernetes_service.nginx.status[0].load_balancer[0].ingress[0].ip}"
 }
+*/
