@@ -1,40 +1,3 @@
-
-# https://docs.cloud.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#notes
-
-#terraform {
-#  required_providers {
-#    kubernetes = {
-#      source  = "hashicorp/kubernetes"
-#      version = "< 2.2.0"
-#    }
-#  }
-#}
-
-
-/*
-
-# define the Kubernetes provider. Get the Kubernetes configuration and extract the cluster certificate, extract the commands and arguments to create an ExecCredential and execute this command
-provider "kubernetes" {
-  #load_config_file       = "false"        
-  #config_path            = "~/.kube/config"
-  cluster_ca_certificate = base64decode(yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["certificate-authority-data"])
-  host                   = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["server"]
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    args = [yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["args"][0],
-      yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["args"][1],
-      yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["args"][2],
-      yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["args"][3],
-      yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["args"][4],
-      yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["args"][5],
-    yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["args"][6]]
-    command = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["users"][0]["user"]["exec"]["command"]
-  }
-}
-
-*/
-
-  
 provider "kubernetes" {
   host                   = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["server"]
   cluster_ca_certificate = base64decode(yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["certificate-authority-data"])
@@ -58,6 +21,7 @@ provider "kubernetes" {
 
 # define a new Kubernetes namespace first
 resource "kubernetes_namespace" "test" {
+  depends_on = [oci_containerengine_node_pool.oke_node_pool]
   metadata {
     name = "nginx"
   }
@@ -67,6 +31,7 @@ resource "kubernetes_namespace" "test" {
 # deploy a Nginx deployment onto Kubernetes with two instances of an nginx container, taken from the official Docker registry
 
 resource "kubernetes_deployment" "test" {
+  depends_on = [oci_containerengine_node_pool.oke_node_pool]
   metadata {
     name      = "nginx"
     namespace = kubernetes_namespace.test.metadata.0.name
