@@ -1,4 +1,5 @@
-resource "oci_containerengine_cluster" "test-oke-cluster" {
+/*
+  resource "oci_containerengine_cluster" "test-oke-cluster" {
   compartment_id     = local.appdev_compartment_ocid
   kubernetes_version = "v1.20.8"
   name               = "cluster123"
@@ -32,3 +33,4 @@ resource "kubernetes_namespace" "namespace" {
     name = "example"
   }
 }
+*/
