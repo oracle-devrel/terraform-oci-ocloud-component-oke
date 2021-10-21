@@ -1,4 +1,4 @@
-/*
+
 # https://docs.cloud.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengdownloadkubeconfigfile.htm#notes
 
 #terraform {
@@ -32,7 +32,7 @@ provider "kubernetes" {
   }
 }
 
-
+*/
   
 provider "kubernetes" {
   host                   = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["server"]
@@ -62,6 +62,7 @@ resource "kubernetes_namespace" "test" {
   }
 }
 
+/*
 # deploy a Nginx deployment onto Kubernetes with two instances of an nginx container, taken from the official Docker registry
 
 resource "kubernetes_deployment" "test" {
