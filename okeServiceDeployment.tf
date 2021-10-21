@@ -32,7 +32,7 @@ provider "kubernetes" {
   }
 }
 
-*/
+#*/
   
 provider "kubernetes" {
   host                   = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["server"]
