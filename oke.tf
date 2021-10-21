@@ -1,5 +1,5 @@
 # builds an OKE cluster along with a subnet for the cluster and API endpoint and another subnet for the worker nodes
-
+/*
 variable "kubernetes_version"   { default = "v1.20.8" }
 variable "node_pool_os" 	{ default = "Oracle Linux" }
 variable "node_pool_os_version" { default = "7.9"}
@@ -245,3 +245,4 @@ output "oke_cluster_id" {
 output "oke_node_pool_id" {
   value = oci_containerengine_node_pool.oke_node_pool.id
 }
+*/
