@@ -63,7 +63,7 @@ resource "kubernetes_namespace" "test" {
   }
 }
 
-/*
+
 # deploy a Nginx deployment onto Kubernetes with two instances of an nginx container, taken from the official Docker registry
 
 resource "kubernetes_deployment" "test" {
@@ -139,4 +139,4 @@ data "kubernetes_service" "nginx" {
 output "nginx_load_balancer_public_endpoint_url" {
   value = "http://${data.kubernetes_service.nginx.status[0].load_balancer[0].ingress[0].ip}"
 }
-*/
+
