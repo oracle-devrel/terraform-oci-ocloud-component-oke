@@ -32,6 +32,7 @@ provider "kubernetes" {
   }
 }
 
+*/
 
   
 provider "kubernetes" {
