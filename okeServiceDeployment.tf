@@ -20,14 +20,14 @@ provider "kubernetes" {
 */
 
 
-terraform {
-  required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "= 1.10.0"
-    }
-  }
-}
+#terraform {
+#  required_providers {
+#    kubernetes = {
+#      source  = "hashicorp/kubernetes"
+#      version = "= 1.10.0"
+#    }
+#  }
+#}
 
 # inserts from mushop sample
 
@@ -43,7 +43,8 @@ resource "local_file" "kubeconfig" {
 
 provider "kubernetes" {
    #version = "= 1.10.0"
-   host                   = yamldecode(local_file.kubeconfig.content)["clusters"][0]["cluster"]["server"]
+  config_path            = "${path.module}/generated/kubeconfig"  #= "~/.kube/config"
+  host                   = yamldecode(local_file.kubeconfig.content)["clusters"][0]["cluster"]["server"]
   cluster_ca_certificate = base64decode(yamldecode(local_file.kubeconfig.content)["clusters"][0]["cluster"]["certificate-authority-data"])
   config_context         = yamldecode(local_file.kubeconfig.content)["contexts"][0]["name"]
   #config_context = "context-c722ueixzla"
@@ -149,8 +150,6 @@ data "kubernetes_service" "nginx" {
 
 # send the Nginx service load balancer public endpoint URL to output
 
-/*
 output "nginx_load_balancer_public_endpoint_url" {
   value = "http://${data.kubernetes_service.nginx.status[0].load_balancer[0].ingress[0].ip}"
 }
-*/
