@@ -1,3 +1,4 @@
+/*
 provider "kubernetes" {
   host                   = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["server"]
   cluster_ca_certificate = base64decode(yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["certificate-authority-data"])
@@ -104,4 +105,4 @@ data "kubernetes_service" "nginx" {
 output "nginx_load_balancer_public_endpoint_url" {
   value = "http://${data.kubernetes_service.nginx.status[0].load_balancer[0].ingress[0].ip}"
 }
-
+*/
