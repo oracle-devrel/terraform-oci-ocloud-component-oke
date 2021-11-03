@@ -31,6 +31,8 @@ provider "kubernetes" {
 
 # inserts from mushop sample
 
+/*
+
 resource "local_file" "oke_kubeconfig" {
   content  = data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content
   filename = "${path.module}/generated/oke_kubeconfig"
@@ -153,3 +155,4 @@ data "kubernetes_service" "nginx" {
 output "nginx_load_balancer_public_endpoint_url" {
   value = "http://${data.kubernetes_service.nginx.status[0].load_balancer[0].ingress[0].ip}"
 }
+*/
