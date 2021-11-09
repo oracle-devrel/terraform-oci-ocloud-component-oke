@@ -62,7 +62,7 @@ data "oci_core_subnets" "app_subnets" {
   state                     = "AVAILABLE"
 }
 
-data "oci_core_subnets" "web_subnets" {
+data "oci_core_subnets" "pres_subnets" {
   compartment_id            = local.nw_compartment_ocid
   vcn_id                    = var.vcn_id
   display_name              = "${local.service}_pres"
