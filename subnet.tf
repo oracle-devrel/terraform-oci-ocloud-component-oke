@@ -1,3 +1,4 @@
+/*
 resource "oci_core_security_list" "appsecuritylist" {
   compartment_id = local.nw_compartment_ocid
   display_name   = "${local.service}_1_app_securitylist"
@@ -108,3 +109,4 @@ resource "oci_core_subnet" "lbnet" {
   route_table_id      = oci_core_route_table.lbroutetable.id
   prohibit_public_ip_on_vnic = false
 }
+*/
