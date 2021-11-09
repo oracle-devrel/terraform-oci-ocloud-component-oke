@@ -45,27 +45,29 @@ data "oci_identity_compartments" "appdev_compartments" {
   state                     = "ACTIVE"
 }
 
-data "oci_core_vcns" "vcns" {
-  compartment_id = local.nw_compartment_ocid
-  display_name              = "${local.service}_${lower(var.environment)}_network_1"
-  state                     = "AVAILABLE"
-}
+#data "oci_core_vcns" "vcns" {
+#  compartment_id = local.nw_compartment_ocid
+#  display_name              = "${local.service}_${lower(var.environment)}_network_1"
+#  state                     = "AVAILABLE"
+#}
 
 data "oci_core_vcn" "vcn" {
   vcn_id     =     var.vcn_id
 }
 
-#data "oci_core_subnets" "app_subnets" {
-#  compartment_id = local.nw_compartment_ocid
-#  display_name              = "${local.service}-0-app-subnet"
-#  state                     = "AVAILABLE"
-#}
+data "oci_core_subnets" "app_subnets" {
+  compartment_id            = local.nw_compartment_ocid
+  vcn_id                    = var.vcn_id
+  display_name              = "${local.service}_app"
+  state                     = "AVAILABLE"
+}
 
-#data "oci_core_subnets" "web_subnets" {
-#  compartment_id = local.nw_compartment_ocid
-#  display_name              = "${local.service}-0-web-subnet"
-#  state                     = "AVAILABLE"
-#}
+data "oci_core_subnets" "web_subnets" {
+  compartment_id            = local.nw_compartment_ocid
+  vcn_id                    = var.vcn_id
+  display_name              = "${local.service}_pres"
+  state                     = "AVAILABLE"
+}
 
 data "oci_core_network_security_groups" "app_nsgs" {
   compartment_id   =     var.nw_compartment_id
