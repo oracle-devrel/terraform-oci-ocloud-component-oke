@@ -47,7 +47,7 @@ data "oci_identity_compartments" "appdev_compartments" {
 
 data "oci_core_vcns" "vcns" {
   compartment_id = local.nw_compartment_ocid
-  display_name              = "${local.service}_dev_network_1"
+  display_name              = "${local.service}_${lower(var.environment)}_network_1"
   state                     = "AVAILABLE"
 }
 
