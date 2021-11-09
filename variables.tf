@@ -77,6 +77,12 @@ variable "project" {
   # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
+variable "environment" {
+  description = "Common Label used with all related resources"
+  type        = string
+  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
+}
+
 variable "nw_compartment_id" {
     type = string
     description = "The OCID of the compartment for the networking resources"
