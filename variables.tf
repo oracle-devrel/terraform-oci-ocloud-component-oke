@@ -53,6 +53,12 @@ variable "AD" {
   default = "1"
 }
 
+variable "stack_id" {
+    type = string
+    description = "Landing Zone Stack OCID"
+  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
+}
+
 variable "appdev_compartment_id" {
     type = string
     description = "The OCID of the compartment for the app stack resources"
