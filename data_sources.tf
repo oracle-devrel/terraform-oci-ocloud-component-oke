@@ -89,3 +89,15 @@ data "oci_core_nat_gateways" "ngws" {
    vcn_id          =     var.vcn_id
 }
 
+data "oci_core_route_tables" "pub_route_tables" {
+    compartment_id = var.nw_compartment_id
+    display_name = "${local.service}_${lower(var.environment)}_network_1_pub_rt"
+    vcn_id = var.vcn_id
+}
+
+data "oci_core_route_tables" "priv_route_tables" {
+    compartment_id = var.nw_compartment_id
+    display_name = "${local.service}_${lower(var.environment)}_network_1_priv_rt"
+    vcn_id = var.vcn_id
+}
+
