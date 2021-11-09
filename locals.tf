@@ -2,7 +2,7 @@
 
 locals {
   home_region      = "eu-frankfurt-1"
-  service          = "${var.organization}_${var.project}"
+  service          = lower("${var.organization}_${var.project}")
   # vcn_id           = try(data.oci_core_vcns.vcns.virtual_networks[0].id,var.vcn_id)
   # vcn_cidr         = try(data.oci_core_vcns.vcns.virtual_networks[0].cidr_blocks[0],var.vcn_cidr)
   # nw_compartment_ocid = try(data.oci_identity_compartments.nw_compartments.compartments[0].id,var.nw_compartment_ocid)
