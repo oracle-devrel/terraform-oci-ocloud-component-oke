@@ -15,6 +15,7 @@ variableGroups:
       - ${appdev_compartment_id}
       - ${organization}
       - ${project}
+      - ${environment}
       - ${shape}
       - ${os}
       - ${os_version}
@@ -46,6 +47,11 @@ variables:
     title: "Project"
     type: string
     description: "Used as part of a service label to identify landing zone resources"
+    required: true
+  environment:
+    title: "Environment"
+    type: string
+    description: "Define the CI/CD process stage, e.g. dev, uat, prod. Used as part of a service label to identify landing zone resources"
     required: true
   shape:
     title: "Compute Instance Shape"
