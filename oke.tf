@@ -1,9 +1,11 @@
 # builds an OKE cluster along with a subnet for the cluster and API endpoint and another subnet for the worker nodes
 
+/*
 variable "kubernetes_version"   { default = "v1.20.8" }
 variable "node_pool_os" 	{ default = "Oracle Linux" }
 variable "node_pool_os_version" { default = "7.9"}
 variable "node_pool_shape"      { default = "VM.Standard2.1" }
+*/
 
 data "oci_core_images" "node_pool_image" {
   compartment_id           = local.appdev_compartment_ocid
@@ -225,7 +227,7 @@ resource "oci_containerengine_node_pool" "oke_node_pool" {
             availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"] 
             subnet_id           = oci_core_subnet.okenodepoolnet.id 
         }
-        size = "2"
+        size = var.nodes_count
     }
     ssh_public_key = var.ssh_public_key
 }
