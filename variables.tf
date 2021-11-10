@@ -32,6 +32,26 @@ variable "os_version" {
     description = "Version of the Compute Instance Operating System"
 }
 
+variable "node_pool_shape" {
+    type = string
+    description = "Shape of the Kubernetes worker nodes"
+}
+
+variable "node_pool_os" {
+    type = string
+    description = "Compute Instance Operating System without version number of the Kubernetes worker nodes"
+}
+
+variable "node_pool_os_version" {
+    type = string
+    description = "Version of the Compute Instance Operating System of the Kubernetes worker nodes"
+}
+
+variable "kubernetes_version" {
+    type = string
+    description = "Version of the Kubernetes cluster"
+}
+
 variable "block_storage_size" {
     type = number
     description = "Size of the Block Storage in GBs"
