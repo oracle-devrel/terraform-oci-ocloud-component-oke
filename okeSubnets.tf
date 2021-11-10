@@ -101,6 +101,7 @@ resource "oci_core_security_list" "k8snodes_security_list" {
 
   ingress_security_rules {
     description = "Allow pods on one worker node to communicate with pods on other worker nodes"
+    protocol    = "all"
     source   = local.k8snodes_cidr
   }
   
@@ -130,8 +131,8 @@ resource "oci_core_security_list" "k8snodes_security_list" {
     source   = local.k8s_cidr
   }
   
-  dynamic "ingresss_security_rules" {
-    for_each = to_set(var.ports_between_nodepool_subnet_and_k8slb_subnet)
+  dynamic "ingress_security_rules" {
+    for_each = toset(var.ports_between_nodepool_subnet_and_k8slb_subnet)
     content {
       protocol    = "6" // tcp
       source      = local.k8slb_cidr
@@ -152,7 +153,7 @@ resource "oci_core_security_list" "k8slb_security_list" {
   vcn_id         = local.vcn_id
 
   dynamic "egress_security_rules" {
-    for_each = to_set(var.ports_between_nodepool_subnet_and_k8slb_subnet)
+    for_each = toset(var.ports_between_nodepool_subnet_and_k8slb_subnet)
     content {
       protocol    = "6" // tcp
       source      = local.k8snodes_cidr
