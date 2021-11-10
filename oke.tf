@@ -203,12 +203,12 @@ resource "oci_core_subnet" "okenodepoolnet" {
 resource "oci_containerengine_cluster" "oke_cluster" {
     compartment_id = local.appdev_compartment_ocid
     kubernetes_version = var.kubernetes_version
-    name = "${local.service}_1_oke_cluster"
+    name = "${local.service}_oke_cluster"
     vcn_id = local.vcn_id
 
     endpoint_config {
         is_public_ip_enabled = "true" 
-        subnet_id = oci_core_subnet.okenet.id
+        subnet_id = oci_core_subnet.k8s.id
     }
 
     options {
@@ -216,7 +216,7 @@ resource "oci_containerengine_cluster" "oke_cluster" {
             is_kubernetes_dashboard_enabled = "true" 
             is_tiller_enabled = "true"
         }
-        service_lb_subnet_ids = [oci_core_subnet.okelbnet.id] 
+        service_lb_subnet_ids = [oci_core_subnet.k8slb.id] 
     }
 }
 
@@ -224,14 +224,14 @@ resource "oci_containerengine_node_pool" "oke_node_pool" {
     cluster_id = oci_containerengine_cluster.oke_cluster.id
     compartment_id = local.appdev_compartment_ocid
     kubernetes_version = var.kubernetes_version 
-    name = "${local.service}_1_oke_nodespool"
+    name = "${local.service}_oke_nodespool"
     node_shape = var.node_pool_shape
     node_image_id = data.oci_core_images.node_pool_image.images[0].id 
    
     node_config_details {
         placement_configs {
             availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"] 
-            subnet_id           = oci_core_subnet.okenodepoolnet.id 
+            subnet_id           = oci_core_subnet.k8snodes.id 
         }
         size = var.nodes_count
     }
