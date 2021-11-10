@@ -132,16 +132,20 @@ resource "oci_core_security_list" "k8snodes_security_list" {
   }
   
   dynamic "ingress_security_rules" {
-    for_each = toset(var.ports_between_nodepool_subnet_and_k8slb_subnet)
+    iterator = rule
+    for_each = [for x in toset(var.ports_between_nodepool_subnet_and_k8slb_subnet)]
+      {
+        port : x
+      }
     content {
       protocol    = "6" // tcp
       source      = local.k8slb_cidr
       stateless   = false
-      description = "allow tcp ingress to port ${each.key} to load balancer subnet"
+      description = "allow tcp ingress to port ${rule.value.port} to load balancer subnet"
       
       tcp_options {
-        min  = each.key
-        max  = each.key
+        min  = rule.value.port
+        max  = rule.value.port
       }
     }
   }
