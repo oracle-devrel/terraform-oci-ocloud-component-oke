@@ -9,7 +9,7 @@ resource "oci_core_instance_pool" "instance_pool" {
         }
     size = "2"
 
-    display_name = "${local.service}_1_app_instancepool"
+    display_name = "${local.service}_app_instancepool"
 
     load_balancers {
         #Required
