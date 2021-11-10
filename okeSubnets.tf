@@ -133,7 +133,7 @@ resource "oci_core_security_list" "k8snodes_security_list" {
   
   dynamic "ingress_security_rules" {
     iterator = rule
-    for_each = [for x in toset(var.ports_between_nodepool_subnet_and_k8slb_subnet)]
+    for_each = [for x in var.ports_between_nodepool_subnet_and_k8slb_subnet : x]
       {
         port : x
       }
