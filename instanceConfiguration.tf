@@ -2,7 +2,7 @@
 
 resource "oci_core_instance_configuration" "instance_configuration" {
     compartment_id = local.appdev_compartment_ocid
-    display_name = "${local.service}_1_app_instance_configuration"
+    display_name = "${local.service}_app_instance_configuration"
     instance_id = oci_core_instance.demo_instance.id
     instance_details {
         instance_type = "compute"
