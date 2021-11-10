@@ -126,7 +126,7 @@ resource "oci_core_security_list" "oke_lb_security_list" {
   }
 }
 
-
+/*
 resource "oci_core_route_table" "okeroutetable" {
   compartment_id = local.nw_compartment_ocid
   vcn_id         = local.vcn_id
@@ -160,6 +160,9 @@ resource "oci_core_route_table" "okelbroutetable" {
   }
 }
 
+*/
+  
+/*
 resource "oci_core_subnet" "okenet" {
   cidr_block       = cidrsubnet(local.vcn_cidr, 4, 3)
   compartment_id   = local.nw_compartment_ocid
@@ -192,6 +195,7 @@ resource "oci_core_subnet" "okenodepoolnet" {
   route_table_id      = oci_core_route_table.okenodepoolroutetable.id
   prohibit_public_ip_on_vnic = true
 }
+*/
 
 
 resource "oci_containerengine_cluster" "oke_cluster" {
