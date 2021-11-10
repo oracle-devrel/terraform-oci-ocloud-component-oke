@@ -16,7 +16,8 @@ locals {
   igw_id           = data.oci_core_internet_gateways.igws.gateways[0].id
   ngw_id           = data.oci_core_nat_gateways.ngws.nat_gateways[0].id
   web_subnet_id        = data.oci_core_subnets.pres_subnets.subnets[0].id
-  web_subnet_cidr_block = data.oci_core_subnets.pres_subnets.subnets[0].cidr_block
+  pub_subnet_rt_id     = data.oci_core_route_tables.pub_route_tables.route_tables[0].id
+  priv_subnet_rt_id     = data.oci_core_route_tables.priv_route_tables.route_tables[0].id
   lbr_nsg_id           = data.oci_core_network_security_groups.lbr_nsgs.network_security_groups[0].id 
 }
 
