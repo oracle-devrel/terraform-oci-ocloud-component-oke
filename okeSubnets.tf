@@ -5,7 +5,7 @@ variable "ports_between_nodepool_subnet_and_k8slb_subnet" {
 
 
 resource "oci_core_subnet" "k8s" {
-  cidr_block       = lookup(values(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets), "k8s", "This CIDR is not defined") 
+  cidr_block       = local.k8s_cidr
   compartment_id   = local.nw_compartment_ocid
   vcn_id           = local.vcn_id
   display_name     = "${local.service}_k8s"
@@ -16,7 +16,7 @@ resource "oci_core_subnet" "k8s" {
 }
 
 resource "oci_core_subnet" "k8slb" {
-  cidr_block       = lookup(values(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets), "k8slb", "This CIDR is not defined") 
+  cidr_block       = local.k8slb_cidr
   compartment_id   = local.nw_compartment_ocid
   vcn_id           = local.vcn_id
   display_name     = "${local.service}_k8slb"
@@ -27,7 +27,7 @@ resource "oci_core_subnet" "k8slb" {
 }
 
 resource "oci_core_subnet" "k8snodes" {
-  cidr_block       = lookup(values(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets), "k8snodes", "This CIDR is not defined") 
+  cidr_block       = local.k8snodes_cidr
   compartment_id   = local.nw_compartment_ocid
   vcn_id           = local.vcn_id
   display_name     = "${local.service}_k8snodes"
@@ -64,7 +64,7 @@ resource "oci_core_security_list" "k8s_security_list" {
     }
     description = "Kubernetes worker to Kubernetes API endpoint communication"
     protocol = "6"
-    source   = oci_core_subnet.k8snodes.cidr_block
+    source   = local.k8snodes_cidr
   }
 
   ingress_security_rules {
@@ -74,7 +74,7 @@ resource "oci_core_security_list" "k8s_security_list" {
     }
     description = "Kubernetes worker to control plane communication"
     protocol = "6"
-    source   = oci_core_subnet.k8snodes.cidr_block
+    source   = local.k8snodes_cidr
   }
   
 
@@ -85,7 +85,7 @@ resource "oci_core_security_list" "k8s_security_list" {
     }
     description = "Path discovery"
     protocol = 1
-    source   = oci_core_subnet.k8snodes.cidr_block
+    source   = local.k8snodes_cidr
   }
 }
 
@@ -101,7 +101,7 @@ resource "oci_core_security_list" "k8snodes_security_list" {
 
   ingress_security_rules {
     description = "Allow pods on one worker node to communicate with pods on other worker nodes"
-    source   = oci_core_subnet.k8snodes.cidr_block
+    source   = local.k8snodes_cidr
   }
   
   ingress_security_rules {
@@ -121,20 +121,20 @@ resource "oci_core_security_list" "k8snodes_security_list" {
     }
     description = "Path discovery"
     protocol = 1
-    source   = oci_core_subnet.k8s.cidr_block
+    source   = local.k8s_cidr
   }
   
   ingress_security_rules {
     description = "TCP access from Kubernetes Control Plane"
     protocol = "6"
-    source   = oci_core_subnet.k8s.cidr_block
+    source   = local.k8s_cidr
   }
   
   dynamic "ingresss_security_rules" {
     for_each = to_set(var.ports_between_nodepool_subnet_and_k8slb_subnet)
     content {
       protocol    = "6" // tcp
-      source      = oci_core_subnet.k8slb.cidr_block
+      source      = local.k8slb_cidr
       stateless   = false
       description = "allow tcp ingress to port ${each.key} to load balancer subnet"
       
@@ -155,7 +155,7 @@ resource "oci_core_security_list" "k8slb_security_list" {
     for_each = to_set(var.ports_between_nodepool_subnet_and_k8slb_subnet)
     content {
       protocol    = "6" // tcp
-      source      = oci_core_subnet.k8snodes.cidr_block
+      source      = local.k8snodes_cidr
       stateless   = false
       description = "allow tcp egress to port ${each.key} to worker node subnet"
       
