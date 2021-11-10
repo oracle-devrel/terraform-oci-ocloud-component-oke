@@ -87,7 +87,63 @@ resource "oci_core_security_list" "k8s_security_list" {
     protocol = 1
     source   = oci_core_subnet.k8snodes.cidr_block
   }
+}
 
+resource "oci_core_security_list" "k8snodes_security_list" {
+  compartment_id = local.nw_compartment_ocid
+  display_name   = "${local.service}_k8snodes_security_list"
+  vcn_id         = local.vcn_id
+
+  egress_security_rules {
+    protocol    = "all"
+    destination = "0.0.0.0/0"
+  }
+
+  ingress_security_rules {
+    description = "Allow pods on one worker node to communicate with pods on other worker nodes"
+    source   = oci_core_subnet.k8snodes.cidr_block
+  }
+  
+  ingress_security_rules {
+    tcp_options {
+      max = 22
+      min = 22
+    }
+    description = "Inbound SSH traffic to worker nodes"
+    protocol = "6"
+    source   = "0.0.0.0/0"
+  }
+  
+  ingress_security_rules {
+    icmp_options {
+      type = 3
+      code = 4
+    }
+    description = "Path discovery"
+    protocol = 1
+    source   = oci_core_subnet.k8s.cidr_block
+  }
+  
+  ingress_security_rules {
+    description = "TCP access from Kubernetes Control Plane"
+    protocol = "6"
+    source   = oci_core_subnet.k8s.cidr_block
+  }
+  
+  dynamic "ingresss_security_rules" {
+    for_each = to_set(var.ports_between_nodepool_subnet_and_k8slb_subnet)
+    content {
+      protocol    = "6" // tcp
+      source      = oci_core_subnet.k8slb.cidr_block
+      stateless   = false
+      description = "allow tcp ingress to port ${each.key} to load balancer subnet"
+      
+      tcp_options {
+        min  = each.key
+        max  = each.key
+      }
+    }
+  }
 }
 
 resource "oci_core_security_list" "k8slb_security_list" {
@@ -101,7 +157,7 @@ resource "oci_core_security_list" "k8slb_security_list" {
       protocol    = "6" // tcp
       source      = oci_core_subnet.k8snodes.cidr_block
       stateless   = false
-      description = "allow tcp egress on port ${each.key} to worker node subnet"
+      description = "allow tcp egress to port ${each.key} to worker node subnet"
       
       tcp_options {
         min  = each.key
