@@ -132,20 +132,16 @@ resource "oci_core_security_list" "k8snodes_security_list" {
   }
   
   dynamic "ingress_security_rules" {
-    iterator = rule
-    for_each = [for x in var.ports_between_nodepool_subnet_and_k8slb_subnet : x]
-      {
-        port : x
-      }
+    for_each = var.ports_between_nodepool_subnet_and_k8slb_subnet
     content {
       protocol    = "6" // tcp
       source      = local.k8slb_cidr
       stateless   = false
-      description = "allow tcp ingress to port ${rule.value.port} to load balancer subnet"
+      description = "allow tcp ingress to port ${ingress_security_rules.value} to load balancer subnet"
       
       tcp_options {
-        min  = rule.value.port
-        max  = rule.value.port
+        min  = ingress_security_rules.value
+        max  = ingress_security_rules.value
       }
     }
   }
@@ -157,16 +153,16 @@ resource "oci_core_security_list" "k8slb_security_list" {
   vcn_id         = local.vcn_id
 
   dynamic "egress_security_rules" {
-    for_each = toset(var.ports_between_nodepool_subnet_and_k8slb_subnet)
+    for_each = var.ports_between_nodepool_subnet_and_k8slb_subnet
     content {
       protocol    = "6" // tcp
-      source      = local.k8snodes_cidr
+      destination = local.k8snodes_cidr
       stateless   = false
-      description = "allow tcp egress to port ${each.key} to worker node subnet"
+      description = "allow tcp egress to port ${egress_security_rules.value} to worker node subnet"
       
       tcp_options {
-        min  = each.key
-        max  = each.key
+        min  = egress_security_rules.value
+        max  = egress_security_rules.value
       }
     }
   }
