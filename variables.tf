@@ -52,6 +52,11 @@ variable "kubernetes_version" {
     description = "Version of the Kubernetes cluster"
 }
 
+variable "nodes_count" {
+    type = string
+    description = "Total number of Kubernetes worker nodes"
+}
+
 variable "block_storage_size" {
     type = number
     description = "Size of the Block Storage in GBs"
