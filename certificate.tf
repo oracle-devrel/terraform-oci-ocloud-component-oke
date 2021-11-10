@@ -12,7 +12,7 @@ resource "tls_self_signed_cert" "demo_certificate" {
   private_key_pem   = tls_private_key.demo_private_key.private_key_pem
 
   subject {
-    common_name         = "${local.service}_1_app_demo_certificate"
+    common_name         = "${local.service}_app_demo_certificate"
     organization        = "Demo"
     organizational_unit = "FOR TESTING ONLY"
   }
