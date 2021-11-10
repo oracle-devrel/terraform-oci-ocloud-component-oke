@@ -16,6 +16,7 @@ data "oci_core_images" "node_pool_image" {
   sort_order		   = "DESC"
 }
 
+/*
 resource "oci_core_security_list" "okenet_security_list" {
   compartment_id = local.nw_compartment_ocid
   display_name   = "${local.service}_1_oke_securitylist"
@@ -125,7 +126,8 @@ resource "oci_core_security_list" "oke_lb_security_list" {
     source   = "0.0.0.0/0"
   }
 }
-
+*/
+  
 /*
 resource "oci_core_route_table" "okeroutetable" {
   compartment_id = local.nw_compartment_ocid
