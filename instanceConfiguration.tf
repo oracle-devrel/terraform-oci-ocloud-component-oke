@@ -1,7 +1,7 @@
 # Copyright (c) 2021 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-# creates an Instance Configuration (as a a prerequisite for an Instance Pool), using the Blueprint instance defined in compute.tf
+# creates an Instance Configuration (as a prerequisite for an Instance Pool), using the Blueprint instance defined in compute.tf
 
 resource "oci_core_instance_configuration" "instance_configuration" {
     compartment_id = local.appdev_compartment_ocid
