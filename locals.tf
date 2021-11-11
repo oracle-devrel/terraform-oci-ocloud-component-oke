@@ -17,7 +17,7 @@ locals {
   web_subnet_id        = data.oci_core_subnets.pres_subnets.subnets[0].id
   pub_subnet_rt_id     = data.oci_core_route_tables.pub_route_tables.route_tables[0].id
   priv_subnet_rt_id     = data.oci_core_route_tables.priv_route_tables.route_tables[0].id
-  lbr_nsg_id           = data.oci_core_network_security_groups.lbr_nsgs.network_security_groups[0].id 
+  #lbr_nsg_id           = data.oci_core_network_security_groups.lbr_nsgs.network_security_groups[0].id 
   k8s_cidr          = lookup(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets, "k8s", "This CIDR is not defined") 
   k8snodes_cidr          = lookup(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets, "k8snodes", "This CIDR is not defined") 
   k8slb_cidr          = lookup(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets, "k8slb", "This CIDR is not defined")  
