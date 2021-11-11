@@ -5,7 +5,7 @@
 
 cd /home/opc
 
-# set timezone to Central European Time
+# set timezone to local timezone
 timedatectl set-timezone Europe/Berlin
 
 # install and start a httpd server, listening on port 80
