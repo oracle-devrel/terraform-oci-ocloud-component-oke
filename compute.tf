@@ -14,6 +14,27 @@ data "oci_core_images" "compute_image" {
 }
 
 
+# because the standard security list does only allow egress traffic with the VCN CIDR block as target, but we need full egress access 
+# in order to be able to install software on these machines
+# so we define a network security group, allowing this access and associate it with the compute instances
+
+resource "oci_core_network_security_group" "instances_nsg" {
+    compartment_id = local.appdev_compartment_ocid 
+    vcn_id = local.vcn_id
+    display_name = "${local.service}_instances_nsg" 
+}
+
+# add a rule to allow stateful egress tcp traffic to 0.0.0.0/0 using all ports
+
+resource "oci_core_network_security_group_security_rule" "tcp_egress_to_all" {
+  network_security_group_id = oci_core_network_security_group.instances_nsg
+  description = "egress to all"
+  direction   = "EGRESS"
+  protocol    = "all"
+  source_type = "CIDR_BLOCK"
+  source      = "0.0.0.0/0"
+}
+
 resource "oci_core_instance" "demo_instance" {
   availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
   compartment_id      = local.appdev_compartment_ocid
@@ -23,10 +44,9 @@ resource "oci_core_instance" "demo_instance" {
   subnet_id           = local.subnet_id
   
   create_vnic_details {
-    #nsg_ids = [local.nsg_id]
+    nsg_ids = [oci_core_network_security_group.instances_nsg]
     assign_public_ip = false
   }
-  #dedicated_vm_host_id = oci_core_dedicated_vm_host.test_dedicated_vm_host.id
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key
@@ -66,5 +86,3 @@ resource "oci_core_volume_attachment" "instance" {
 #    user_data           = base64encode(file(var.InstanceBootStrap))
 #  }
 #}
-
-
