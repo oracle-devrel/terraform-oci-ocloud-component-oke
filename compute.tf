@@ -76,13 +76,14 @@ resource "oci_core_volume_attachment" "instance" {
 #  availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
 #  compartment_id      = local.appdev_compartment_ocid
 #  display_name        = "${local.service}_dedicated_vm_host_instance #${count.index + 1}"
-#  image               = var.CustomImage
-#  shape               = var.InstanceShape
-#  subnet_id           = oci_core_subnet.computenet.id
+#  image               = data.oci_core_images.compute_image.images[0].id 
+#  shape               = var.shape
+#  subnet_id           = local.subnet_id
 #  dedicated_vm_host_id = oci_core_dedicated_vm_host.test_dedicated_vm_host.id
 
 #  metadata = {
 #    ssh_authorized_keys = var.ssh_public_key
+#    cpu_100percent_time = var.cloud_init_parameter_1
 #    user_data           = base64encode(file(var.InstanceBootStrap))
 #  }
 #}
