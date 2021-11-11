@@ -1,4 +1,12 @@
-variable "ports_between_nodepool_subnet_and_k8slb_subnet" {
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+# build the subnets k8s (Kubernetes Cluster API endpoint), k8snodes (Kubernetes worker nodes), k8slb (Kubernetes service load balancer), re-using the pre-configured
+# CIDR blocks from the Landing Zone stack, build the appropriate security lists and re-use the Landing-Zone-stack generated route tables for private and public subnets.
+
+# build a list of ports to be opened between the k8snodes and the k8slb subnet to be able to define security list rules dynamically.
+
+variable "ports_between_k8nodes_subnet_and_k8slb_subnet" {
   type    = list(string)
   default = ["30198", "10256", "31093", "32551", "30517", "80", "443", "30943", "32206", "31866"]
 }
@@ -132,7 +140,7 @@ resource "oci_core_security_list" "k8snodes_security_list" {
   }
   
   dynamic "ingress_security_rules" {
-    for_each = var.ports_between_nodepool_subnet_and_k8slb_subnet
+    for_each = var.ports_between_k8nodes_subnet_and_k8slb_subnet
     content {
       protocol    = "6" // tcp
       source      = local.k8slb_cidr
@@ -153,7 +161,7 @@ resource "oci_core_security_list" "k8slb_security_list" {
   vcn_id         = local.vcn_id
 
   dynamic "egress_security_rules" {
-    for_each = var.ports_between_nodepool_subnet_and_k8slb_subnet
+    for_each = var.ports_between_k8nodes_subnet_and_k8slb_subnet
     content {
       protocol    = "6" // tcp
       destination = local.k8snodes_cidr
