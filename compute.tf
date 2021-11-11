@@ -31,7 +31,7 @@ resource "oci_core_network_security_group_security_rule" "tcp_egress_to_all" {
   description               = "tcp egress to all"
   direction                 = "EGRESS"
   protocol                  = 6 //tcp
-  destination_type.         = "CIDR_BLOCK"
+  destination_type          = "CIDR_BLOCK"
   destination               = "0.0.0.0/0"
 }
 
