@@ -1,12 +1,11 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 # copy the discovered resources from datasource.tf into local variables
 
 locals {
   home_region      = "eu-frankfurt-1"
   service          = lower("${var.organization}_${var.project}")
-  # vcn_id           = try(data.oci_core_vcns.vcns.virtual_networks[0].id,var.vcn_id)
-  # vcn_cidr         = try(data.oci_core_vcns.vcns.virtual_networks[0].cidr_blocks[0],var.vcn_cidr)
-  # nw_compartment_ocid = try(data.oci_identity_compartments.nw_compartments.compartments[0].id,var.nw_compartment_ocid)
-  # appdev_compartment_ocid = try(data.oci_identity_compartments.appdev_compartments.compartments[0].id,var.appdev_compartment_ocid)
   vcn_id           = var.vcn_id
   vcn_cidr         = data.oci_core_vcn.vcn.cidr_blocks[0]
   nw_compartment_ocid = var.nw_compartment_id
@@ -23,4 +22,3 @@ locals {
   k8snodes_cidr          = lookup(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets, "k8snodes", "This CIDR is not defined") 
   k8slb_cidr          = lookup(data.terraform_remote_state.external_stack_remote_state.outputs.service_segment_subnets, "k8slb", "This CIDR is not defined")  
 }
-
