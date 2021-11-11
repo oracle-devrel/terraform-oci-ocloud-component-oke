@@ -14,7 +14,7 @@ resource "oci_core_instance_configuration" "instance_configuration" {
             display_name = "Compute Instance"
             create_vnic_details {
                 assign_public_ip = false
-                nsg_ids = [oci_core_network_security_group.instances_nsg]
+                nsg_ids = [oci_core_network_security_group.instances_nsg.id]
             }
 
             shape = var.shape
