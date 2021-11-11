@@ -1,3 +1,8 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+# Definition file for the variables entry form of the Create-Oracle-Resource-Manager-Stack dialogue of the OCI web console
+
 # Title shown in Application Information tab.
 title: "Application Stack Schema"
 # Sub Title shown in Application Information tab.
