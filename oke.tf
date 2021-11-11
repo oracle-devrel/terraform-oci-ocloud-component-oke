@@ -3,7 +3,7 @@
 
 # builds an OKE cluster along with a subnet for the cluster and API endpoint and another subnet for the worker nodes
 
-# look up the appropriate compute image for the desired shape, operating system and version. The newest one appears in element 0 of the returned data set
+# look up the appropriate compute image for the desired shape, operating system and version. The newest one appears in element 0 of the returned data set.
 data "oci_core_images" "node_pool_image" {
   compartment_id           = local.appdev_compartment_ocid
   operating_system         = var.node_pool_os
