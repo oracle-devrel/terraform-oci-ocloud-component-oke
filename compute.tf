@@ -28,9 +28,9 @@ resource "oci_core_network_security_group" "instances_nsg" {
 
 resource "oci_core_network_security_group_security_rule" "tcp_egress_to_all" {
   network_security_group_id = oci_core_network_security_group.instances_nsg
-  description = "egress to all"
+  description = "tcp egress to all"
   direction   = "EGRESS"
-  protocol    = "all"
+  protocol    = 6 //tcp
   source_type = "CIDR_BLOCK"
   source      = "0.0.0.0/0"
 }
