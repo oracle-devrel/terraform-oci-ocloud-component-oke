@@ -72,6 +72,7 @@ data "oci_core_subnets" "pres_subnets" {
   state                     = "AVAILABLE"
 }
 
+/*
 data "oci_core_network_security_groups" "app_nsgs" {
   compartment_id   =     var.nw_compartment_id
   vcn_id           =     var.vcn_id
@@ -81,6 +82,7 @@ data "oci_core_network_security_groups" "lbr_nsgs" {
   compartment_id   =     var.nw_compartment_id
   vcn_id     =     var.vcn_id
 }
+*/
 
 data "oci_core_internet_gateways" "igws" {
   compartment_id   =     var.nw_compartment_id
