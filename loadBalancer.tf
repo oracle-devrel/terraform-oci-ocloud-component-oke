@@ -1,13 +1,15 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 # creates a Load Balancer and related sub-resources (listener, backend etc.) that will be placed in front of the instances in the instance pool
 # the LB will listen to https, port 443 only (using the key and cert defined in certificat.tf) and will talk to the Instance Pool instances using HTTP, port 80
 
 #Load Balancer
 resource "oci_load_balancer_load_balancer" "load_balancer" {
-    compartment_id = local.appdev_compartment_ocid
+    compartment_id = local.nw_compartment_ocid
     display_name = "${local.service}_1_app_loadbalancer"
     shape = "100Mbps"
     subnet_ids = [local.web_subnet_id]
-    #network_security_group_ids = [local.lbr_nsg_id]
 }
 
 # LB Listener
@@ -41,6 +43,7 @@ resource "oci_load_balancer_backend_set" "backend_set" {
     
 }
 
+/*
 #Add 443 ingress policy to existing LBR network security group
 resource "oci_core_network_security_group_security_rule" "https" {
   network_security_group_id = local.lbr_nsg_id
@@ -57,6 +60,7 @@ resource "oci_core_network_security_group_security_rule" "https" {
     }
   }
 }
+*/
 
 
 output "instance_pool_load_balancer_public_endpoint_url" {
