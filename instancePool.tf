@@ -1,3 +1,6 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 # creates the Instance Pool based on the Instance Configuration defined in instanceConfiguration.tf
 
 resource "oci_core_instance_pool" "instance_pool" {
@@ -12,7 +15,6 @@ resource "oci_core_instance_pool" "instance_pool" {
     display_name = "${local.service}_app_instancepool"
 
     load_balancers {
-        #Required
         backend_set_name = oci_load_balancer_backend_set.backend_set.name
         load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id
         port = 80
