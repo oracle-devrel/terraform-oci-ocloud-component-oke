@@ -7,7 +7,7 @@
 #Load Balancer
 resource "oci_load_balancer_load_balancer" "load_balancer" {
     compartment_id = local.nw_compartment_ocid
-    display_name = "${local.service}_1_app_loadbalancer"
+    display_name = "${local.service}_app_loadbalancer"
     shape = "100Mbps"
     subnet_ids = [local.web_subnet_id]
 }
@@ -16,7 +16,7 @@ resource "oci_load_balancer_load_balancer" "load_balancer" {
 resource "oci_load_balancer_listener" "lb_listener" {
     default_backend_set_name = "${oci_load_balancer_backend_set.backend_set.name}"
     load_balancer_id = "${oci_load_balancer_load_balancer.load_balancer.id}"
-    name = "${local.service}_1_app_lb_listener"
+    name = "${local.service}_app_lb_listener"
     port = "443"
     protocol = "HTTP"
     ssl_configuration {
@@ -33,7 +33,7 @@ resource "oci_load_balancer_backend_set" "backend_set" {
         url_path = "/"
     }
     load_balancer_id = "${oci_load_balancer_load_balancer.load_balancer.id}"
-    name = "${local.service}_1_app_lb_bs"
+    name = "${local.service}_app_lb_bs"
     policy = "WEIGHTED_ROUND_ROBIN"
     
     session_persistence_configuration {
