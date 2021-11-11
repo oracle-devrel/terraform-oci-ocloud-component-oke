@@ -36,6 +36,7 @@ resource "oci_core_network_security_group_security_rule" "tcp_egress_to_all" {
 }
 
 resource "oci_core_instance" "demo_instance" {
+  depends_on          = [ oci_core_network_security_group_security_rule.tcp_egress_to_all ]
   availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
   compartment_id      = local.appdev_compartment_ocid
   display_name        = "${local.service}_app_demo_instance"
