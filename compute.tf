@@ -19,9 +19,9 @@ data "oci_core_images" "compute_image" {
 # so we define a network security group, allowing this access and associate it with the compute instances
 
 resource "oci_core_network_security_group" "instances_nsg" {
-    compartment_id = local.appdev_compartment_ocid 
+    compartment_id = local.nw_compartment_ocid 
     vcn_id = local.vcn_id
-    display_name = "${local.service}_instances_nsg" 
+    display_name = "${local.service}_app_compute_instances_nsg" 
 }
 
 # add a rule to allow stateful egress tcp traffic to 0.0.0.0/0 using all ports
