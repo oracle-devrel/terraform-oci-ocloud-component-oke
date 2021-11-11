@@ -27,7 +27,7 @@ resource "oci_core_network_security_group" "instances_nsg" {
 # add a rule to allow stateful egress tcp traffic to 0.0.0.0/0 using all ports
 
 resource "oci_core_network_security_group_security_rule" "tcp_egress_to_all" {
-  network_security_group_id = oci_core_network_security_group.instances_nsg
+  network_security_group_id = oci_core_network_security_group.instances_nsg.id
   description = "tcp egress to all"
   direction   = "EGRESS"
   protocol    = 6 //tcp
@@ -44,7 +44,7 @@ resource "oci_core_instance" "demo_instance" {
   subnet_id           = local.subnet_id
   
   create_vnic_details {
-    nsg_ids = [oci_core_network_security_group.instances_nsg]
+    nsg_ids = [oci_core_network_security_group.instances_nsg.id]
     assign_public_ip = false
   }
 
