@@ -4,6 +4,7 @@
 # creates an Instance Configuration (as a prerequisite for an Instance Pool), using the Blueprint instance defined in compute.tf
 
 resource "oci_core_instance_configuration" "instance_configuration" {
+    depends_on     = [ oci_core_network_security_group_security_rule.tcp_egress_to_all ]
     compartment_id = local.appdev_compartment_ocid
     display_name = "${local.service}_app_instance_configuration"
     instance_id = oci_core_instance.demo_instance.id
