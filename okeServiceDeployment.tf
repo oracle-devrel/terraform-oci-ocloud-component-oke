@@ -1,3 +1,7 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+# initialize the Hashicorp Kubernetes provider and configure it with the .kube/config file from the OKE cluster
 
 provider "kubernetes" {
   host                   = yamldecode(data.oci_containerengine_cluster_kube_config.oke_cluster_kube_config.content)["clusters"][0]["cluster"]["server"]
@@ -17,10 +21,11 @@ provider "kubernetes" {
   }
 }
 
-# test demo deployment of a nginx web server
-# taken from https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/guides/getting-started and adapted to this case
+# test demo deployment of a nginx web server according to
+# documentation https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/guides/getting-started
 
 # define a new Kubernetes namespace first
+
 resource "kubernetes_namespace" "test" {
   depends_on = [oci_containerengine_node_pool.oke_node_pool]
   metadata {
@@ -29,7 +34,7 @@ resource "kubernetes_namespace" "test" {
 }
 
 
-# deploy a Nginx deployment onto Kubernetes with two instances of an nginx container, taken from the official Docker registry
+# deploy an Nginx deployment onto Kubernetes with two instances of an nginx container, taken from the official Docker registry
 
 resource "kubernetes_deployment" "test" {
   depends_on = [oci_containerengine_node_pool.oke_node_pool]
