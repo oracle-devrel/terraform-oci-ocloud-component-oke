@@ -79,7 +79,7 @@ resource "oci_core_volume_attachment" "instance" {
 #  image               = data.oci_core_images.compute_image.images[0].id 
 #  shape               = var.shape
 #  subnet_id           = local.subnet_id
-#  dedicated_vm_host_id = oci_core_dedicated_vm_host.test_dedicated_vm_host.id
+#  dedicated_vm_host_id = oci_core_dedicated_vm_host.dedicated_vm_host.id
 
 #  metadata = {
 #    ssh_authorized_keys = var.ssh_public_key
