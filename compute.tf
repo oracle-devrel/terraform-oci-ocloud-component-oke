@@ -1,7 +1,8 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 # the first data element looks up all available images, the newest one is returned as the first element of the array, so we can index it with [0]
-
-# due to the service limits, no dedicated VM host can be deployed in our tenant. However, I left the definition for instances on a Dedicated VM Host here at the bottom (commented out).
+# due to the common service limits, no dedicated VM host can be deployed. However, I left the definition for instances on a Dedicated VM Host here at the bottom (commented out).
 
 data "oci_core_images" "compute_image" {
   compartment_id           = local.appdev_compartment_ocid
@@ -54,7 +55,7 @@ resource "oci_core_volume_attachment" "instance" {
 #  count               = 4
 #  availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
 #  compartment_id      = local.appdev_compartment_ocid
-#  display_name        = "VM #${count.index + 1} on the Dedicated VM Host"
+#  display_name        = "${local.service}_dedicated_vm_host_instance #${count.index + 1}"
 #  image               = var.CustomImage
 #  shape               = var.InstanceShape
 #  subnet_id           = oci_core_subnet.computenet.id
