@@ -1,3 +1,6 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 # discover all necessary resources that have been deployed prior to applying this stack and which are needed for this stack
 
 # Pull the state file of the existing Resource Manager stack (the network stack) into this context
