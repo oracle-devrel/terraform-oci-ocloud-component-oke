@@ -72,7 +72,13 @@ variable "cloud_init_parameter_1" {
 
 variable "pool_instance_count" {
     type = string
-    description = "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out."
+    description = "This is the number of VMs that are created in the Instance Pool."
+}
+
+variable "max_pool_instance_count" {
+    type = string
+    description = "This is triple the number of pool_instance_count. This number is used as the maximum number of VM instances in the Instance Pool for auto-scaling."
+    default = tostring(tonumber(pool_instance_count) * 3)
 }
 
 variable "ssh_public_key" {
