@@ -70,6 +70,11 @@ variable "cloud_init_parameter_1" {
     description = "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out."
 }
 
+variable "pool_instance_count" {
+    type = string
+    description = "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out."
+}
+
 variable "ssh_public_key" {
 }
 
