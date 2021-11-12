@@ -13,9 +13,9 @@ resource "oci_autoscaling_auto_scaling_configuration" "auto_scaling_configuratio
     policies {
         policy_type = "threshold"
         capacity {
-            initial = "2"
-            max = "6"
-            min = "2"
+            initial = var.pool_instance_count
+            max = var.max_pool_instance_count
+            min = var.pool_instance_count
         }
         display_name = "${local.service}_app_autoscaling_policy"
         is_enabled = "true"
@@ -29,7 +29,7 @@ resource "oci_autoscaling_auto_scaling_configuration" "auto_scaling_configuratio
                 metric_type = "CPU_UTILIZATION"
                 threshold {
                     operator = "GT"
-                    value = "80"
+                    value = "70"
                 }
             }
         }
