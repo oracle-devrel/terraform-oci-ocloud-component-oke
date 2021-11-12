@@ -29,6 +29,7 @@ variableGroups:
       - ${os_version}
       - ${block_storage_size}
       - ${cloud_init_parameter_1}
+      - ${pool_instance_count}
       
   - title: "Kubernetes Information"
     variables:
@@ -99,6 +100,12 @@ variables:
     description: "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
     required: true
     default: "0"
+  pool_instance_count:
+    title: "Number of VM instances in the Instance Pool"
+    type: string
+    description: "This is the number of VMs that are created in the Instance Pool. Dependend on their CPU utilization they can be auto-scaled up to the triple number."
+    required: true
+    default: "2"
   kubernetes_version:
     title: "Kubernetes Cluster version"
     type: string
