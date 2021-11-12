@@ -14,7 +14,7 @@ resource "oci_autoscaling_auto_scaling_configuration" "auto_scaling_configuratio
         policy_type = "threshold"
         capacity {
             initial = var.pool_instance_count
-            max = var.max_pool_instance_count
+            max = tostring(tonumber(pool_instance_count) * 3)  //scale up to triple number of initial VMs
             min = var.pool_instance_count
         }
         display_name = "${local.service}_app_autoscaling_policy"
