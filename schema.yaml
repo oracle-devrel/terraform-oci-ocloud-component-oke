@@ -103,7 +103,7 @@ variables:
   pool_instance_count:
     title: "Number of VM instances in the Instance Pool"
     type: string
-    description: "This is the number of VMs that are created in the Instance Pool. Dependend on their CPU utilization they can be auto-scaled up to the triple number."
+    description: "This is the number of VMs that are created in the Instance Pool. Dependending on their CPU utilization they can be auto-scaled up to the triple number."
     required: true
     default: "2"
   kubernetes_version:
