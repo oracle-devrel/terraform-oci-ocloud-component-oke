@@ -10,7 +10,7 @@ resource "oci_core_instance_pool" "instance_pool" {
         availability_domain = data.oci_identity_availability_domains.ADs.availability_domains[0]["name"]
         primary_subnet_id = local.subnet_id
         }
-    size = "2"
+    size = var.pool_instance_count
 
     display_name = "${local.service}_app_instancepool"
 
