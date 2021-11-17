@@ -21,3 +21,7 @@ resource "oci_core_instance_pool" "instance_pool" {
         vnic_selection = "PrimaryVnic"
     }
 }
+
+output "instance_pool_id" {
+  value = oci_core_instance_pool.instance_pool.id
+}
