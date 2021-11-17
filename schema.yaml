@@ -14,48 +14,48 @@ locale: "en"
 variableGroups:
   - title: "Existing Landing Zone Stack OCID"
     variables:
-      - stack_id
+      - ${stack_id}
   - title: "App Stack Information"
     variables:
-      - appdev_compartment_id
-      - organization
-      - project
-      - environment
+      - ${appdev_compartment_id}
+      - ${organization}
+      - ${project}
+      - ${environment}
       
   - title: "VM Instance Pool Information"
     variables:
-      - shape
-      - os
-      - os_version
-      - block_storage_size
-      - ssh_public_key
-      - cloud_init_parameter_1
-      - pool_instance_count
+      - ${shape}
+      - ${os}
+      - ${os_version}
+      - ${block_storage_size}
+      - ${ssh_public_key}
+      - ${cloud_init_parameter_1}
+      - ${pool_instance_count}
       
   - title: "Kubernetes Information"
     variables:
-      - kubernetes_version
-      - node_pool_shape
-      - node_pool_os
-      - node_pool_os_version
-      - nodes_count
+      - ${kubernetes_version}
+      - ${node_pool_shape}
+      - ${node_pool_os}
+      - ${node_pool_os_version}
+      - ${nodes_count}
 
   - title: "Network Information"
     variables:
-      - nw_compartment_id
-      - vcn_id
+      - ${nw_compartment_id}
+      - ${vcn_id}
       
   - title: "Hidden"
     visible: false
     variables:
-      - ports_between_k8nodes_subnet_and_k8slb_subnet
-      - tenancy_ocid
-      - user_ocid
-      - fingerprint
-      - private_key_path
-      - region
-      - InstanceBootStrap
-      - AD
+      - ${ports_between_k8nodes_subnet_and_k8slb_subnet}
+      - ${tenancy_ocid}
+      - ${user_ocid}
+      - ${fingerprint}
+      - ${private_key_path}
+      - ${region}
+      - ${InstanceBootStrap}
+      - ${AD}
 
 variables:
 
