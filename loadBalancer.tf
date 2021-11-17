@@ -67,4 +67,8 @@ output "instance_pool_load_balancer_public_endpoint_url" {
   value = "https://${oci_load_balancer_load_balancer.load_balancer.ip_address_details[0].ip_address}"
 }
 
+output "instance_pool_load_balancer_id" {
+  value = "https://${oci_load_balancer_load_balancer.load_balancer.id}"
+}
+
 
