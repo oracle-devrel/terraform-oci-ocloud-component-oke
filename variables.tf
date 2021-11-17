@@ -76,6 +76,8 @@ variable "pool_instance_count" {
 }
 
 variable "ssh_public_key" {
+     type = string
+     description = "Public Key of the RSA key pair to authenticate the SSH connection to created instances."
 }
 
 variable "InstanceBootStrap" {
