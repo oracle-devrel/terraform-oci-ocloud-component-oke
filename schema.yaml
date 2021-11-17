@@ -9,40 +9,53 @@ title: "Application Stack Schema"
 description: "Stack deploys a Dedicated Host, an Instance Pool of VMs and a Kubernetes Cluster" 
 informationalText: "Stack deploys a Dedicated Host, an Instance Pool (along with an Autoscaling Policy) of VMs with a Load Balancer in front and a Kubernetes Cluster on top of the infrastructure deployed by the Landing Zone stack in a previous step. To demonstrate the autoscaling mechanism, the compute instances are deployed with a script that starts automatically and utilizes the CPUs to 100% for a user-defined time. This script can be exchanged to any other user-defined shell script. To demonstrate how Kubernetes workloads can be deployed to the Kubernetes cluster, a sample NGINX server gets deployed and exposed as a service."
 schemaVersion: 1.0.0
-version: "2021110"
+version: "20211117"
 locale: "en"
 variableGroups:
   - title: "Existing Landing Zone Stack OCID"
     variables:
-      - ${stack_id}
+      -stack_id
   - title: "App Stack Information"
     variables:
-      - ${appdev_compartment_id}
-      - ${organization}
-      - ${project}
-      - ${environment}
+      - appdev_compartment_id
+      - organization
+      - project
+      - environment
       
   - title: "VM Instance Pool Information"
     variables:
-      - ${shape}
-      - ${os}
-      - ${os_version}
-      - ${block_storage_size}
-      - ${cloud_init_parameter_1}
-      - ${pool_instance_count}
+      - shape
+      - os
+      - os_version
+      - block_storage_size
+      - ssh_public_key
+      - cloud_init_parameter_1
+      - pool_instance_count
       
   - title: "Kubernetes Information"
     variables:
-      - ${kubernetes_version}
-      - ${node_pool_shape}
-      - ${node_pool_os}
-      - ${node_pool_os_version}
-      - ${nodes_count}
+      - kubernetes_version
+      - node_pool_shape
+      - node_pool_os
+      - node_pool_os_version
+      - nodes_count
 
   - title: "Network Information"
     variables:
-      - ${nw_compartment_id}
-      - ${vcn_id}
+      - nw_compartment_id
+      - vcn_id
+      
+  - title: "Hidden"
+    visible: false
+    variables:
+      - ports_between_k8nodes_subnet_and_k8slb_subnet
+      - tenancy_ocid
+      - user_ocid
+      - fingerprint
+      - private_key_path
+      - region
+      - InstanceBootStrap
+      - AD
 
 variables:
 
@@ -86,6 +99,12 @@ variables:
     title: "Version of the Compute Instance Operating System"
     type: string
     description: "Version of the Compute Instance Operating System"
+    required: true
+    default: "7.9"
+  ssh_public_key:
+    title: "SSH Public Key"
+    type: string
+    description: "Public Key of the RSA key pair to authenticate the SSH connection to created instances."
     required: true
     default: "7.9"
   block_storage_size:
@@ -147,4 +166,52 @@ variables:
     dependsOn:
       compartmentId: ${nw_compartment_id}
     required: true
+  ports_between_k8nodes_subnet_and_k8slb_subnet:
+    title: "Ports between K8snodes and K8s subnet"
+    description: "Ports between K8snodes and K8s subnet to be opendes in security lists"
+    type: string
+    required: true
+    visible: false
+  tenancy_ocid:
+    title: "OCID of the tenancy"
+    description: "OCID of the tenancy"
+    type: string
+    required: true
+    visible: false
+  user_ocid:
+    title: "OCID of the user"
+    description: "OCID of the user"
+    type: string
+    required: true
+    visible: false
+  fingerprint:
+    title: "Fingerprint of the user's OCI API Key"
+    description: "Fingerprint (hash value) of the user's OCI API Key public key"
+    type: string
+    required: true
+    visible: false
+  private_key_path:
+    title: "Local path of user's OCI API private key"
+    description: "Local path of user's OCI API private key"
+    type: string
+    required: true
+    visible: false
+  region:
+    title: "OCI region"
+    description: "OCI region identifier (e.g. eu-frankfurt-1)"
+    type: string
+    required: true
+    visible: false
+  InstanceBootStrap:
+    title: "Instance boot strap path"
+    description: "Path of the bash script to be executed on compute instances after their creation by Terraform."
+    type: string
+    required: true
+    visible: false
+  AD:    
+    title: "Avalability Domain"
+    description: "Ordinal number of the Availability Domain where the stack should be deployed to (e.g. 1)"
+    type: string
+    required: true
+    visible: false
 
