@@ -53,3 +53,7 @@ resource "oci_autoscaling_auto_scaling_configuration" "auto_scaling_configuratio
     display_name = "${local.service}_app_autoscaling_configuration"   
     is_enabled = "true"
 }
+
+output "auto_scaling_configuration.id" {
+  value = oci_autoscaling_auto_scaling_configuration.auto_scaling_configuration.id
+}
