@@ -33,3 +33,7 @@ resource "oci_core_instance_configuration" "instance_configuration" {
    }
 }
 
+output "instance_configuration_id" {
+  value = oci_core_instance_configuration.instance_configuration.id
+}
+
