@@ -88,3 +88,8 @@ resource "oci_core_volume_attachment" "instance" {
 #    user_data           = base64encode(file(var.InstanceBootStrap))
 #  }
 #}
+
+output "compute_instance_id" {
+  value = oci_core_instance.demo_instance.id
+}
+
