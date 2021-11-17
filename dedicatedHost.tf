@@ -10,5 +10,9 @@ resource "oci_core_dedicated_vm_host" "dedicated_vm_host" {
     dedicated_vm_host_shape = "DVH.Standard2.52"
     display_name = "${local.service}_dedicated_vm_host"
 }
+
+output "dedicated_vm_host_id" {
+  value = oci_core_dedicated_vm_host.dedicated_vm_host.id
+}
 */
 
