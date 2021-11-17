@@ -54,6 +54,6 @@ resource "oci_autoscaling_auto_scaling_configuration" "auto_scaling_configuratio
     is_enabled = "true"
 }
 
-output "auto_scaling_configuration.id" {
+output "auto_scaling_configuration_id" {
   value = oci_autoscaling_auto_scaling_configuration.auto_scaling_configuration.id
 }
