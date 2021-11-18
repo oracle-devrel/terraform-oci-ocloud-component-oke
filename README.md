@@ -127,6 +127,18 @@ Deployment Steps
 7. Save the stack
 8. Deploy the stack (please check the prerequisites)
 
+Steps to destroy the infrastructure
+
+1. Login to your tenant
+2. Choose the Stack to destroy within the Oracle Resource Manager
+3. Click the red "Destroy" button
+4. Click on the link "Show Advanced Options" in the Destroy menu on the right hand side.
+5. Uncheck the "Refresh Resources States Before Checking For Differences" option
+
+<img alt="Uncheck the &quot;Refresh Resources States Before Checking For Differences&quot; option" src="doc/image/terraform_destroy.png" title="Uncheck the &quot;Refresh Resources States Before Checking For Differences&quot; option">
+
+6. Click the blue "Destroy" button at the bottom of the Destroy menu on the right hand side.
+
 ### Prerequisites
 
 The [OCloud Framework] (https://github.com/oracle-devrel/terraform-oci-ocloud-landing-zone) requires that a OCLoud landing zone is deployed first. The landing zone stack instantiates a VCN, a DB compartment with all policies that allows DB Administrators to provision a Database Cloud Service.
