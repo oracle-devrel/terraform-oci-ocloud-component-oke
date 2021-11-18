@@ -135,7 +135,7 @@ Steps to destroy the infrastructure
 4. Click on the link "Show Advanced Options" in the Destroy menu on the right hand side.
 5. Uncheck the "Refresh Resources States Before Checking For Differences" option
 
-<img alt="Uncheck the &quot;Refresh Resources States Before Checking For Differences&quot; option" src="doc/image/terraform_destroy.png" title="Uncheck the &quot;Refresh Resources States Before Checking For Differences&quot; option">
+<img width="33%" height="33%" alt="Uncheck the &quot;Refresh Resources States Before Checking For Differences&quot; option" src="doc/image/terraform_destroy.png" title="Uncheck the &quot;Refresh Resources States Before Checking For Differences&quot; option">
 
 6. Click the blue "Destroy" button at the bottom of the Destroy menu on the right hand side.
 
