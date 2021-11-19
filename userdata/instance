@@ -33,10 +33,13 @@ NO_OF_THREADS=$(lscpu | grep "CPU(s):" | head -n 1 | awk '{ print $2 }')
 for i in $(seq $NO_OF_THREADS) 
 do 
 yes >/dev/null & 
+PROCESS_ID_${i}=$!
+sleep "${CPU_100PERCENT_TIME}m"
+kill -9 $PROCESS_ID_${i}
 done 
 
 # wait the desired time in minutes, so we can watch the scaling out according to the autoscaling policy
-sleep "${CPU_100PERCENT_TIME}m"
+#sleep "${CPU_100PERCENT_TIME}m"
 
 # kill all "yes" processes to get rid of the CPU load
-pkill -f yes
+#pkill -f yes
