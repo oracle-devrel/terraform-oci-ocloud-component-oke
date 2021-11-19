@@ -29,17 +29,15 @@ CPU_100PERCENT_TIME=$(curl -L http://169.254.169.254/opc/v1/instance/metadata/cp
 # get available number of CPU threads
 NO_OF_THREADS=$(lscpu | grep "CPU(s):" | head -n 1 | awk '{ print $2 }')
 
-# for every thread, start a background process that utilizes 100% of the thread, using the "yes" utility
+# for every thread, start a background process that utilizes 100% of the thread, using the "yes" utility,
+# wait the desired time in minutes, so we can watch the scaling out according to the autoscaling policy
+# and terminate all these yes processes.
 for i in $(seq $NO_OF_THREADS) 
 do 
-yes >/dev/null & 
-PROCESS_ID_${i}=$!
+(
+yes &>/dev/null &
+PROCESS_ID=$!
 sleep "${CPU_100PERCENT_TIME}m"
-kill -9 $PROCESS_ID_${i}
+kill -9 $PROCESS_ID
+) &>/dev/null &
 done 
-
-# wait the desired time in minutes, so we can watch the scaling out according to the autoscaling policy
-#sleep "${CPU_100PERCENT_TIME}m"
-
-# kill all "yes" processes to get rid of the CPU load
-#pkill -f yes
