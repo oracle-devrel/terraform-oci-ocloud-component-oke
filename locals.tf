@@ -12,6 +12,7 @@ locals {
   nw_compartment_ocid       = var.nw_compartment_id
   appdev_compartment_ocid   = var.appdev_compartment_id
   subnet_id                 = data.oci_core_subnets.app_subnets.subnets[0].id
+  subnet_cidr_block         = data.oci_core_subnets.app_subnets.subnets[0].cidr_block
   igw_id                    = data.oci_core_internet_gateways.igws.gateways[0].id
   ngw_id                    = data.oci_core_nat_gateways.ngws.nat_gateways[0].id
   web_subnet_id             = data.oci_core_subnets.pres_subnets.subnets[0].id
