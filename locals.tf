@@ -5,7 +5,7 @@
 
 locals {
   home_region               = "eu-frankfurt-1"
-  regioncode                = lower(data.oci_identity_regions.all_regions.regions[index(data.oci_identity_regions.all_regions.regions.name, var.region)].key)
+  regioncode                = lower([for region in data.oci_identity_regions.all_regions.regions : region.key if region.name == var.region][0])
   service                   = lower("${var.organization}_${var.project}")
   vcn_id                    = var.vcn_id
   vcn_cidr                  = data.oci_core_vcn.vcn.cidr_blocks[0]
