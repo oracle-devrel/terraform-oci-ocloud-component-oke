@@ -3,6 +3,9 @@
 
 # discover all necessary resources that have been deployed prior to applying this stack and which are needed for this stack
 
+data "oci_identity_regions" "all_regions" {
+}
+
 # Pull the state file of the existing Resource Manager stack (the network stack) into this context
 data "oci_resourcemanager_stack_tf_state" "stack1_tf_state" {
   stack_id   = "${var.stack_id}"
