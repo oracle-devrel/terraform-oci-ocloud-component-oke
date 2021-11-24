@@ -1,6 +1,10 @@
 # Copyright (c) 2021 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
+variable "region" {
+     default = "eu-frankfurt-1"
+}
+
 variable "tenancy_ocid" {
 }
 
@@ -14,10 +18,6 @@ variable "fingerprint" {
 
 variable "private_key_path" {
     default = ""
-}
-
-variable "region" {
-     default = "eu-frankfurt-1"
 }
 
 variable "shape" {
