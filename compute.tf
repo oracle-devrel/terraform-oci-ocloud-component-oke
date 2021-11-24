@@ -15,7 +15,8 @@ data "oci_core_images" "compute_image" {
 
 
 # because the standard security list does only allow egress traffic with the VCN CIDR block as target, but we need full egress access 
-# in order to be able to install software on these machines
+# in order to be able to install software on these machines. Furthermore, we will allow ssh ingress traffic for the app subnet's CIDR block, 
+# egress to the Oracle Services Network to start the Bastion Host plugin on the instances.
 # so we define a network security group, allowing this access and associate it with the compute instances
 
 resource "oci_core_network_security_group" "instances_nsg" {
@@ -33,6 +34,39 @@ resource "oci_core_network_security_group_security_rule" "tcp_egress_to_all" {
   protocol                  = 6 //tcp
   destination_type          = "CIDR_BLOCK"
   destination               = "0.0.0.0/0"
+}
+
+resource "oci_core_network_security_group_security_rule" "ssh_ingress_from_app_subnet" {
+  network_security_group_id = oci_core_network_security_group.instances_nsg.id
+  description               = "ssh ingress from app subnet"
+  direction                 = "INGRESS"
+  protocol                  = 6 //tcp
+  destination_type          = "CIDR_BLOCK"
+  destination               = local.subnet_id.cidr_block
+  tcp_options {
+        destination_port_range {
+            max = "22"
+            min = "22"
+        }
+    }
+}
+
+resource "oci_core_network_security_group_security_rule" "tcp_egress_to_all_osn_services" {
+  network_security_group_id = oci_core_network_security_group.instances_nsg.id
+  description               = "tcp egress to all OSN services"
+  direction                 = "EGRESS"
+  protocol                  = 6 //tcp
+  destination_type          = "SERVICE_CIDR_BLOCK"
+  destination               = "all-${local.regioncode}-services-in-oracle-services-network"
+}
+
+resource "oci_core_network_security_group_security_rule" "tcp_egress_to_object_storage" {
+  network_security_group_id = oci_core_network_security_group.instances_nsg.id
+  description               = "tcp egress to object storage"
+  direction                 = "EGRESS"
+  protocol                  = 6 //tcp
+  destination_type          = "SERVICE_CIDR_BLOCK"
+  destination               = "oci-${local.regioncode}-objectstorage"
 }
 
 resource "oci_core_instance" "demo_instance" {
