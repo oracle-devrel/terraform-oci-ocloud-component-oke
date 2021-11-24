@@ -41,8 +41,8 @@ resource "oci_core_network_security_group_security_rule" "ssh_ingress_from_app_s
   description               = "ssh ingress from app subnet"
   direction                 = "INGRESS"
   protocol                  = 6 //tcp
-  destination_type          = "CIDR_BLOCK"
-  destination               = local.subnet_id.cidr_block
+  source_type               = "CIDR_BLOCK"
+  source                    = local.subnet_cidr_block  
   tcp_options {
         destination_port_range {
             max = "22"
