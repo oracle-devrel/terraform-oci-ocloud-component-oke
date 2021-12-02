@@ -195,3 +195,15 @@ resource "oci_core_security_list" "k8slb_security_list" {
     source   = "0.0.0.0/0"
   }
 }
+
+output "kubernetes_cluster_and_api_endpoint_subnet_id" {
+  value = oci_core_subnet.k8s.id
+}
+
+output "kubernetes_load_balancer_subnet_id" {
+  value = oci_core_subnet.k8slb.id
+}
+
+output "kubernetes_worker_nodes_subnet_id" {
+  value = oci_core_subnet.k8snodes.id
+}
