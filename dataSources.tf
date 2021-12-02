@@ -51,12 +51,6 @@ data "oci_identity_compartments" "appdev_compartments" {
   state                     = "ACTIVE"
 }
 
-#data "oci_core_vcns" "vcns" {
-#  compartment_id = local.nw_compartment_ocid
-#  display_name              = "${local.service}_${lower(var.environment)}_network_1"
-#  state                     = "AVAILABLE"
-#}
-
 data "oci_core_vcn" "vcn" {
   vcn_id     =     var.vcn_id
 }
@@ -74,18 +68,6 @@ data "oci_core_subnets" "pres_subnets" {
   display_name              = "${local.service}_pres"
   state                     = "AVAILABLE"
 }
-
-/*
-data "oci_core_network_security_groups" "app_nsgs" {
-  compartment_id   =     var.nw_compartment_id
-  vcn_id           =     var.vcn_id
-}
-
-data "oci_core_network_security_groups" "lbr_nsgs" {
-  compartment_id   =     var.nw_compartment_id
-  vcn_id     =     var.vcn_id
-}
-*/
 
 data "oci_core_internet_gateways" "igws" {
   compartment_id   =     var.nw_compartment_id
