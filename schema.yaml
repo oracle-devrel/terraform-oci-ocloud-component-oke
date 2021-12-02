@@ -130,7 +130,7 @@ variables:
     type: string
     description: "Version for the Kubernetes Cluster"
     required: true
-    default: "v1.20.8"
+    default: "v1.20.11"
   node_pool_shape:
     title: "Compute Instance Shape for the Kubernetes worker nodes"
     type: string
