@@ -8,6 +8,22 @@ cd /home/opc
 # set timezone to local timezone
 timedatectl set-timezone Europe/Berlin
 
+# add a script to use in case a block volume has been attached
+cat << EOF > /home/opc/finishBlockVolumeSetup.sh
+diskId="\$(sudo fdisk -l)"
+diskId=\${diskId#*Disk /}
+diskId=\${diskId#*Disk /}
+diskId=\${diskId%%: *}
+diskId="/\$diskId"
+sudo mkfs -t ext4 -F \$diskId
+echo -e 'File system on block volume has been created at \$(date).\n\n\n'
+sleep 3s
+sudo mkdir /blockvolume
+sudo mount \$diskId /blockvolume
+echo -e 'Block volume has been mounted at \$(date).\n\n\n'
+EOF
+chmod a+x /home/opc/finishBlockVolumeSetup.sh
+
 # install and start a httpd server, listening on port 80
 yum install -y httpd
 systemctl start httpd
