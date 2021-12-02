@@ -26,7 +26,7 @@ echo -e '\n\n'
 EOF
 chmod a+x /home/opc/finishBlockVolumeSetup.sh
 
-# install and start a httpd server, listening on port 80
+# install and start a httpd server
 yum install -y httpd
 systemctl start httpd
 chkconfig httpd on
