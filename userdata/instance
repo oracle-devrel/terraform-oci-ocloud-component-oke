@@ -16,11 +16,13 @@ diskId=\${diskId#*Disk /}
 diskId=\${diskId%%: *}
 diskId="/\$diskId"
 sudo mkfs -t ext4 -F \$diskId
-echo -e 'File system on block volume has been created at \$(date).\n\n\n'
+echo "File system on block volume has been created at \$(date)."
+echo -e '\n\n'
 sleep 3s
 sudo mkdir /blockvolume
 sudo mount \$diskId /blockvolume
-echo -e 'Block volume has been mounted at \$(date).\n\n\n'
+echo "Block volume has been mounted to /blockvolume at \$(date)."
+echo -e '\n\n'
 EOF
 chmod a+x /home/opc/finishBlockVolumeSetup.sh
 
