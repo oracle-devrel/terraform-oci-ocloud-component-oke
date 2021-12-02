@@ -81,7 +81,7 @@ variable "ssh_public_key" {
 }
 
 variable "InstanceBootStrap" {
-  default = "./userdata/instance"
+  default = "./instancebootstrap.sh"
 }
 
 variable "AD" {
