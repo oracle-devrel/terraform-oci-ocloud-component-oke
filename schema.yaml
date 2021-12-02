@@ -107,13 +107,12 @@ variables:
     type: string
     description: "Public Key of the RSA key pair to authenticate the SSH connection to created instances."
     required: true
-    default: "7.9"
   block_storage_size:
     title: "Size of the Block Storage in GBs"
     type: number
     description: "Size of the Block Storage in GBs"
     required: true
-    default: 50
+    default: 70
   cloud_init_parameter_1:
     title: "Parameter for Cloud Init"
     type: string
