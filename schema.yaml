@@ -50,6 +50,7 @@ variableGroups:
     variables:
       - ${ports_between_k8nodes_subnet_and_k8slb_subnet}
       - ${tenancy_ocid}
+      - ${compartment_ocid}
       - ${user_ocid}
       - ${fingerprint}
       - ${private_key_path}
@@ -175,6 +176,12 @@ variables:
   tenancy_ocid:
     title: "OCID of the tenancy"
     description: "OCID of the tenancy"
+    type: string
+    required: true
+    visible: false
+  compartment_ocid:
+    title: "OCID of the compartment where the stack is associated with"
+    description: "OCID of the compartment where the stack is associated with"
     type: string
     required: true
     visible: false
