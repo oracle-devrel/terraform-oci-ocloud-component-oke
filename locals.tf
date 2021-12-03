@@ -4,7 +4,7 @@
 # copy the discovered resources from datasource.tf into local variables
 
 locals {
-  home_region               = "eu-frankfurt-1"
+  //home_region               = "eu-frankfurt-1"
   regioncode                = lower([for region in data.oci_identity_regions.all_regions.regions : region.key if region.name == var.region][0])
   service                   = lower("${var.organization}_${var.project}")
   vcn_id                    = var.vcn_id
