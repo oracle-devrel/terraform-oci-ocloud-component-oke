@@ -4,7 +4,6 @@
 // --- Oracle Resource Manager configuration ---
 variable "tenancy_ocid"     { }
 variable "compartment_ocid" { }
-variable "region"           { }
 
 // --- User Profile configuration ---
 variable "user_ocid" {
@@ -20,6 +19,11 @@ variable "private_key_path" {
 }
 
 // --- Application Stack variables ---
+variable "region"  {
+    type = string
+    description = "Region where this stack should be deployed to"
+}
+
 variable "shape" {
     type = string
     description = "Shape of the compute instances"
