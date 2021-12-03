@@ -1,0 +1,231 @@
+# Copyright (c) 2021 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+# Definition file for the variables entry form of the Create-Oracle-Resource-Manager-Stack dialogue of the OCI web console
+
+# Title shown in Application Information tab.
+title: "Application Stack Schema"
+# Sub Title shown in Application Information tab.
+description: "Stack deploys a VM Host, an Instance Pool of VMs and a Kubernetes Cluster" 
+informationalText: "Stack deploys a VM Host, an Instance Pool (along with an Autoscaling Policy) of VMs with a Load Balancer in front and a Kubernetes Cluster on top of the infrastructure deployed by the Landing Zone stack in a previous step. To demonstrate the autoscaling mechanism, the compute instances are deployed with a script that starts automatically and utilizes the CPUs to 100% for a user-defined time. This script can be exchanged to any other user-defined shell script. To demonstrate how Kubernetes workloads can be deployed to the Kubernetes cluster, a sample NGINX server gets deployed and exposed as a service. The stack also provides the Terrform code to deploy a Dedicated VM Host, but since many tenancies don't permit the deployment of this resource, the code is commented out here."
+schemaVersion: 1.0.0
+version: "20211203"
+locale: "en"
+variableGroups:
+  - title: "Existing Landing Zone Stack OCID"
+    variables:
+      - ${stack_id}
+  - title: "App Stack Information"
+    variables:
+      - ${region}
+      - ${appdev_compartment_id}
+      - ${organization}
+      - ${project}
+      - ${environment}
+      
+  - title: "VM Instance Pool Information"
+    variables:
+      - ${shape}
+      - ${os}
+      - ${os_version}
+      - ${block_storage_size}
+      - ${ssh_public_key}
+      - ${cloud_init_parameter_1}
+      - ${pool_instance_count}
+      
+  - title: "Kubernetes Information"
+    variables:
+      - ${kubernetes_version}
+      - ${node_pool_shape}
+      - ${node_pool_os}
+      - ${node_pool_os_version}
+      - ${nodes_count}
+
+  - title: "Network Information"
+    variables:
+      - ${nw_compartment_id}
+      - ${vcn_id}
+      
+  - title: "Hidden"
+    visible: false
+    variables:
+      - ${ports_between_k8nodes_subnet_and_k8slb_subnet}
+      - ${tenancy_ocid}
+      - ${compartment_ocid}
+      - ${user_ocid}
+      - ${fingerprint}
+      - ${private_key_path}
+      - ${region}
+      - ${InstanceBootStrap}
+      - ${AD}
+
+variables:
+
+  stack_id:
+    title: "Landing Zone Stack OCID"
+    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the landing zone Terraform stack's OCID."
+    type: string
+    required: true
+  region:
+    title: "Region"
+    description: "Region where this stack should be deployed to"
+    type: string 
+#oci:identity:region:id
+    required: true
+  appdev_compartment_id:
+    title: "Application Stack Compartment OCID"
+    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the application stack compartment's OCID."
+    type: oci:identity:compartment:id
+    required: true
+  organization:
+    title: "Organization"
+    type: string
+    description: "Used as part of a service label to identify landing zone resources"
+    required: true
+  project:
+    title: "Project"
+    type: string
+    description: "Used as part of a service label to identify landing zone resources"
+    required: true
+  environment:
+    title: "Environment"
+    type: string
+    description: "Define the CI/CD process stage, e.g. dev, uat, prod. Used as part of a service label to identify landing zone resources"
+    required: true
+  shape:
+    title: "Compute Instance Shape"
+    type: string
+    description: "Shape of the compute instances"
+    required: true
+    default: "VM.Standard2.1"
+  os:
+    title: "Compute Instance Operating System"
+    type: string
+    description: "Operating System for the compute instances without version number"
+    required: true
+    default: "Oracle Linux"
+  os_version:
+    title: "Version of the Compute Instance Operating System"
+    type: string
+    description: "Version of the Compute Instance Operating System"
+    required: true
+    default: "7.9"
+  ssh_public_key:
+    title: "SSH Public Key"
+    type: string
+    description: "Public Key of the RSA key pair to authenticate the SSH connection to created instances."
+    required: true
+  block_storage_size:
+    title: "Size of the Block Storage in GBs"
+    type: number
+    description: "Size of the Block Storage in GBs"
+    required: true
+    default: 70
+  cloud_init_parameter_1:
+    title: "Parameter for Cloud Init"
+    type: string
+    description: "This is a parameter that will be used when starting the cloud instances. In this example, it is the number of minutes, a 100% CPU usage should be simulated in Instance Pool instances to demonstrate auto-scaling-out. Enter 0 (zero) if you don't want this simulation."
+    required: true
+    default: "0"
+  pool_instance_count:
+    title: "Number of VM instances in the Instance Pool"
+    type: string
+    description: "This is the number of VMs that are created in the Instance Pool. Dependending on their CPU utilization they can be auto-scaled up to the triple number."
+    required: true
+    default: "2"
+  kubernetes_version:
+    title: "Kubernetes Cluster version"
+    type: string
+    description: "Version for the Kubernetes Cluster"
+    required: true
+    default: "v1.20.11"
+  node_pool_shape:
+    title: "Compute Instance Shape for the Kubernetes worker nodes"
+    type: string
+    description: "Shape of the compute instances for the Kubernetes worker nodes"
+    required: true
+    default: "VM.Standard2.1"
+  node_pool_os:
+    title: "Compute Instance Operating System for the Kubernetes worker nodes"
+    type: string
+    description: "Operating System for the compute instances for the Kubernetes worker nodes without version number"
+    required: true
+    default: "Oracle Linux"
+  node_pool_os_version:
+    title: "Version of the Compute Instance Operating System for the Kubernetes worker nodes"
+    type: string
+    description: "Version of the Compute Instance Operating System for the Kubernetes worker nodes"
+    required: true
+    default: "7.9"
+  nodes_count:
+    title: "Total number of Kubernetes worker nodes"
+    type: string
+    description: "Total number of Kubernetes worker nodes"
+    required: true
+    default: "3"
+  nw_compartment_id:
+    title: "Network Compartment OCID"
+    type: oci:identity:compartment:id
+    required: true
+  vcn_id:
+    title: "Application Stack VCN"
+    type: oci:core:vcn:id
+    description: "Virtual Cloud Network into which the application stack will be created"
+    dependsOn:
+      compartmentId: ${nw_compartment_id}
+    required: true
+  ports_between_k8nodes_subnet_and_k8slb_subnet:
+    title: "Ports between K8snodes and K8s subnet"
+    description: "Ports between K8snodes and K8s subnet to be opendes in security lists"
+    type: string
+    required: true
+    visible: false
+  tenancy_ocid:
+    title: "OCID of the tenancy"
+    description: "OCID of the tenancy"
+    type: string
+    required: true
+    visible: false
+  compartment_ocid:
+    title: "OCID of the compartment where the stack is associated with"
+    description: "OCID of the compartment where the stack is associated with"
+    type: string
+    required: true
+    visible: false
+  user_ocid:
+    title: "OCID of the user"
+    description: "OCID of the user"
+    type: string
+    required: true
+    visible: false
+  fingerprint:
+    title: "Fingerprint of the user's OCI API Key"
+    description: "Fingerprint (hash value) of the user's OCI API Key public key"
+    type: string
+    required: true
+    visible: false
+  private_key_path:
+    title: "Local path of user's OCI API private key"
+    description: "Local path of user's OCI API private key"
+    type: string
+    required: true
+    visible: false
+  region:
+    title: "OCI region"
+    description: "OCI region identifier (e.g. eu-frankfurt-1)"
+    type: string
+    required: true
+    visible: false
+  InstanceBootStrap:
+    title: "Instance boot strap path"
+    description: "Path of the bash script to be executed on compute instances after their creation by Terraform."
+    type: string
+    required: true
+    visible: false
+  AD:    
+    title: "Avalability Domain"
+    description: "Ordinal number of the Availability Domain where the stack should be deployed to (e.g. 1)"
+    type: string
+    required: true
+    visible: false
+
