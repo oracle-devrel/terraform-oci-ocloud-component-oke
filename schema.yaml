@@ -17,6 +17,7 @@ variableGroups:
       - ${stack_id}
   - title: "App Stack Information"
     variables:
+      - ${region}
       - ${appdev_compartment_id}
       - ${organization}
       - ${project}
@@ -65,9 +66,15 @@ variables:
     description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the landing zone Terraform stack's OCID."
     type: string
     required: true
+  region:
+    title: "Region"
+    description: "Region where this stack should be deployed to"
+    type: string 
+#oci:identity:region:id
+    required: true
   appdev_compartment_id:
     title: "Application Stack Compartment OCID"
-    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the application stack compartment's OCID."
+    description: "By default the application stack is deployed within an application stack compartment which was created as part of the ocloud landing zone. Enter the application stack compartment's OCID."
     type: oci:identity:compartment:id
     required: true
   organization:
