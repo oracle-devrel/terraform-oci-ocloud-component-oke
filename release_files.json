@@ -11,10 +11,10 @@
         "src": "LICENSE"
       },
       {
-        "src": "schema.yaml",
+        "src": "schema.yaml"
       },
       {
-        "src": "instancebootstrap.sh",
+        "src": "instancebootstrap.sh"
       }
     ]
   },
