@@ -1,13 +1,12 @@
 # Copyright (c) 2021 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-variable "region" {
-     default = "eu-frankfurt-1"
-}
+// --- Oracle Resource Manager configuration ---
+variable "tenancy_ocid"     { }
+variable "compartment_ocid" { }
+variable "region"           { }
 
-variable "tenancy_ocid" {
-}
-
+// --- User Profile configuration ---
 variable "user_ocid" {
   default = ""
 }
@@ -20,6 +19,7 @@ variable "private_key_path" {
     default = ""
 }
 
+// --- Application Stack variables ---
 variable "shape" {
     type = string
     description = "Shape of the compute instances"
