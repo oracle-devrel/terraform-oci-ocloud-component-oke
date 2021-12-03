@@ -19,9 +19,14 @@ variable "private_key_path" {
 }
 
 // --- Application Stack variables ---
-variable "region"  {
+variable "my_region"  {
     type = string
     description = "Region where this stack should be deployed to"
+}
+
+variable "region"  {
+    type = string
+    default = var.my_region
 }
 
 variable "shape" {
@@ -132,5 +137,3 @@ variable "vcn_id" {
     type = string
   # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
-
-
