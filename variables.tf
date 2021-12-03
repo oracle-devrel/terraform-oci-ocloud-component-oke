@@ -24,11 +24,6 @@ variable "my_region"  {
     description = "Region where this stack should be deployed to"
 }
 
-variable "region"  {
-    type = string
-    default = var.my_region
-}
-
 variable "shape" {
     type = string
     description = "Shape of the compute instances"
@@ -100,40 +95,33 @@ variable "AD" {
 variable "stack_id" {
     type = string
     description = "Landing Zone Stack OCID"
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 variable "appdev_compartment_id" {
     type = string
     description = "The OCID of the compartment for the app stack resources"
-    # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 variable "organization" {
   description = "Common Label Part used with all related resources"
   type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 variable "project" {
   description = "Common Label Part used with all related resources"
   type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 variable "environment" {
   description = "Common Label used with all related resources"
   type        = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 variable "nw_compartment_id" {
     type = string
     description = "The OCID of the compartment for the networking resources"
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
 
 variable "vcn_id" {
     type = string
-  # no default value, asking user to explicitly set this variable's value. see codingconventions.adoc  
 }
