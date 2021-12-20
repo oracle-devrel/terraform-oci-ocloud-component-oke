@@ -57,7 +57,7 @@ resource "kubernetes_deployment" "test" {
       }
       spec {
         container {
-          image = "fra.ocir.io/sabanga/ilaue/xmas-application:latest"
+          image = "nginx"
           name  = "nginx-container"
           port {
             container_port = 80
