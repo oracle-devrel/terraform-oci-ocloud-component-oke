@@ -6,10 +6,12 @@
 # Title shown in Application Information tab.
 title: "Application Stack Schema"
 # Sub Title shown in Application Information tab.
-description: "Stack deploys a VM Host, an Instance Pool of VMs and a Kubernetes Cluster" 
-informationalText: "Stack deploys a VM Host, an Instance Pool (along with an Autoscaling Policy) of VMs with a Load Balancer in front and a Kubernetes Cluster on top of the infrastructure deployed by the Landing Zone stack in a previous step. To demonstrate the autoscaling mechanism, the compute instances are deployed with a script that starts automatically and utilizes the CPUs to 100% for a user-defined time. This script can be exchanged to any other user-defined shell script. To demonstrate how Kubernetes workloads can be deployed to the Kubernetes cluster, a sample NGINX server gets deployed and exposed as a service. The stack also provides the Terrform code to deploy a Dedicated VM Host, but since many tenancies don't permit the deployment of this resource, the code is commented out here."
-schemaVersion: 1.0.0
-version: "20211203"
+
+description: "This stack deploys a VM Host, an Instance Pool of VMs and a Kubernetes Cluster" 
+informationalText: "This stack deploys a VM Host, an Instance Pool (along with an Autoscaling Policy) of VMs with a Load Balancer in front and a Kubernetes Cluster on top of the infrastructure deployed by the Landing Zone stack in a previous step. To demonstrate the autoscaling mechanism, the compute instances are deployed with a script that starts automatically and utilizes the CPUs to 100% for a user-defined time. This script can be exchanged to any other user-defined shell script. To demonstrate how Kubernetes workloads can be deployed to the Kubernetes cluster, a sample NGINX server gets deployed and exposed as a service. The stack also provides the Terraform code to deploy a Dedicated VM Host, but since many tenancies don't permit the deployment of this resource, the code is commented out here."
+schemaVersion: 1.0.0.2
+version: "20211206"
+
 locale: "en"
 variableGroups:
   - title: "Existing Landing Zone Stack OCID"
@@ -63,7 +65,7 @@ variables:
 
   stack_id:
     title: "Landing Zone Stack OCID"
-    description: "By default the application stack is deployed within am application stack compartment which was created as part of the ocloud landing zone. Enter the landing zone Terraform stack's OCID."
+    description: "By default the application stack is deployed within an application stack compartment which was created as part of the ocloud landing zone. Enter the landing zone Terraform stack's OCID."
     type: string
     required: true
   my_region:
